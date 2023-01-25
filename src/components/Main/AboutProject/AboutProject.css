@@ -1,6 +1,7 @@
 .about-project {
   max-width: 1280px;
-  margin: auto;
+  padding: 110px;
+  background: #202020;
 }
 
 .section__title {
@@ -13,7 +14,7 @@
   color: #FFFFFF;
   padding:0 0 23px 0;
   border-bottom: 0.5px solid;
-  margin: 110px 0 0 58px;
+  margin: 0;
   max-width: 1140px;
 }
 
@@ -24,7 +25,7 @@
   column-gap: 40px;
   row-gap: 26px;
   margin: 0;
-  padding: 70px 0 110px 70px;
+  padding: 70px 0 110px 0;
 }
 
 .about-project__title {
@@ -58,8 +59,8 @@
   grid-template-rows: repeat(2, 36px);
   align-items: center;
   box-sizing: border-box;
-  padding: 0 0 110px 70px;
-  max-width: 1200px;
+  padding: 0;
+  max-width: 1140px;
 }
 
 .about-project__time-line {
