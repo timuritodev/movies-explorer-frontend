@@ -1,0 +1,11 @@
+.movies-cardlist {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, 360px);
+  justify-content: center;
+  justify-items: center;
+  gap: 32px ;
+  margin: auto;
+  padding: 70px 70px 30px;
+  background: #202020;
+  box-shadow: 10px #000;
+}

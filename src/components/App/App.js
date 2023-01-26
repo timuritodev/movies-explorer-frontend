@@ -3,17 +3,18 @@ import './App.css';
 import { Route, Routes } from 'react-router-dom';
 import Main from '../Main/Main';
 import Footer from '../Footer/Footer';
+import Movies from '../Movies/Movies';
 
 function App() {
   return (
     <div className="app">
       <Header />
-
-      <Routes>
+      <Movies />
+      {/* <Routes>
         <Route exact path='/' element={<Main />}>
         </Route>
-      </Routes>
-
+      </Routes> */}
+      <Main />
       <Footer />
 
     </div>
