@@ -1,6 +1,6 @@
 .about-me {
-  max-width: 1280px;
-  padding: 110px;
+  margin: 0;
+  padding: 70px;
   background: #202020;
 }
 
@@ -8,7 +8,7 @@
   margin: 66px 0 0;
   display: flex;
   justify-content: space-between;
-  max-width: 1140px;
+
 }
 
 .about-me__info {
