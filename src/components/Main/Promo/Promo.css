@@ -20,3 +20,26 @@
   margin-bottom: 75px;
 
 }
+
+.promo__links {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: row;
+  padding: 24px;
+  background-color: #272727;
+}
+
+.promo__link {
+  font-family: Inter;
+  font-size: 13px;
+  font-weight: 500;
+  line-height: 16px;
+  letter-spacing: 0px;
+  text-align: left;
+  color: #fff;
+  border-bottom: 1px solid;
+  transition: opacity 0.4s linear;
+  text-decoration: none;
+  margin: 0 40px 0 0;
+}
