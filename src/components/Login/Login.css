@@ -101,5 +101,13 @@
 }
 
 .login-form__error {
-
+  margin: 0 0 4px;
+  padding: 0;
+  height: 12px;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 12px;
+  color: #EE3465;
 }
