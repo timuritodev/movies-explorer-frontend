@@ -13,24 +13,26 @@
   background: #343434;
   border-radius: 20px ;
   transition: 0.5s;
-  outline: 1px #fff;
   cursor: pointer;
 }
 
 .filter-checkbox__input:before {
   content: "";
   position: absolute;
-  width: 16px;
-  height: 16px;
+  width: 15px;
+  height: 15px;
   border-radius: 20px;
-  top: 2px;
+  top: 3px;
   left: 2px;
   background: #2BE080;
+  outline-style: solid;
+  outline-width: 1px;
+  outline-color: #fff;
   transition: 0.5s;
 }
 
 .filter-checkbox__input:checked:before {
-  left: 18px;
+  left: 19px;
 }
 
 .filter-checkbox__text {

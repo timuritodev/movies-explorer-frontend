@@ -14,7 +14,7 @@ function App() {
         <Route exact path='/' element={<Main />}>
         </Route>
       </Routes> */}
-      <Main />
+      {/* <Main /> */}
       <Footer />
 
     </div>

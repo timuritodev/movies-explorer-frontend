@@ -1,0 +1,25 @@
+.movies__button {
+  display: flex;
+  justify-content: center;
+  padding: 28px 0 80px 0;
+  background: #202020;
+}
+
+.more__button {
+  width: 320px;
+  height: 36px;
+  background: #202020;
+  color: #fff;
+  cursor: pointer;
+  outline-style: solid;
+  outline-width: 1px;
+  outline-color: #424242;
+  border: none;
+  border-radius: 6px;
+  font-family: Inter;
+  font-size: 12px;
+  font-weight: 500;
+  line-height: 15px;
+  letter-spacing: 0px;
+  text-align: center;
+}
