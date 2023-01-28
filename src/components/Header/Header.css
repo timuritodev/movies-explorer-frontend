@@ -21,3 +21,18 @@
 .header__logo:hover {
   opacity: 0.9;
 }
+
+.header__burger {
+  width: 44px;
+  height: 44px;
+  margin: 0;
+  padding: 0;
+  background-image: url(../../images/burger.svg);
+  background-color: initial;
+  background-size: contain;
+  border: none;
+}
+
+.header__burger_invisible {
+  display: none;
+}

@@ -5,15 +5,17 @@ import { Route, Routes, useLocation } from 'react-router-dom';
 import Main from '../Main/Main';
 import Footer from '../Footer/Footer';
 import Movies from '../Movies/Movies';
-import SavedMovies from '../SavedMovies/SavedMovies'
+import SavedMovies from '../SavedMovies/SavedMovies';
 import Login from '../Login/Login';
 import Register from '../Register/Register';
 import Profile from '../Profile/Profile';
 import NotFound from '../NotFound/NotFound';
+import PopupMenu from '../PopupMenu/PopupMenu';
 
 function App() {
 
 const [isMainPage, setIsMainPage] = useState(false);
+const [isPopupOpen, setIsPopupOpen] = useState(false);
 
 const { pathname } = useLocation();
 const urlHeaderRender = ['/', '/movies', '/saved-movies', '/profile'];
@@ -36,9 +38,13 @@ function compareUrl(urlList) {
   return false;
 }
 
+const togglePopupMenu = () => {
+  setIsPopupOpen(!isPopupOpen);
+}
+
   return (
     <div className="app">
-      {compareUrl(urlHeaderRender) ? <Header isMainPage={isMainPage} /> : null}
+      {compareUrl(urlHeaderRender) ? <Header isMainPage={isMainPage} togglePopupMenu={togglePopupMenu}/> : null}
 
       <Routes>
       <Route exact path='/' element={<Main />}>
@@ -59,6 +65,7 @@ function compareUrl(urlList) {
 
       {compareUrl(urlFooterRender) ? <Footer /> : null}
 
+      <PopupMenu isOpen={isPopupOpen} togglePopupMenu={togglePopupMenu} compareUrl={compareUrl}/>
     </div>
   );
 }
