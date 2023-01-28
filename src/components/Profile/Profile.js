@@ -14,8 +14,8 @@ function Profile() {
           <input className="profile-form__input" name="profile-email" id="profile-email" type="email" placeholder="sosalnet@yandex.ru" />
         </div>
       </form>
-      <button className="profile__button" type="submit">Редактировать</button>
-      <button className="profile__button profile__button_exit" type="submit">Выйти из аккаунта</button>
+      <button className="profile__button button" type="submit">Редактировать</button>
+      <button className="profile__button profile__button_exit button" type="submit">Выйти из аккаунта</button>
     </section>
   );
 }

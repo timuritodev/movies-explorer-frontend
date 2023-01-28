@@ -5,7 +5,7 @@ function Login() {
   return (
     <section className="login">
       <div className="login__block">
-      <Link className="header__logo" to="/"></Link>
+      <Link className="header__logo link" to="/"></Link>
       <h1 className="login__title">Рады, видеть!</h1>
       <form className="login-form" name="login">
         <label className="login-form__label">E-mail</label>
@@ -14,8 +14,8 @@ function Login() {
         <label className="login-form__label">Пароль</label>
         <input className="login-form__input" name="password" id="password"  type="password" placeholder="Пароль"></input>
         <span className="login-form__error"></span>
-        <button className="login-form__button" type="submit">Войти</button>
-        <p className="login-form__text">Ещё не зарегистрированы?<Link className="login-form__link" to="/">{" "} Регистрация</Link></p>
+        <button className="login-form__button" type="submit button">Войти</button>
+        <p className="login-form__text">Ещё не зарегистрированы?<Link className="login-form__link" to="/signup">{" "} Регистрация</Link></p>
       </form>
       </div>
     </section>

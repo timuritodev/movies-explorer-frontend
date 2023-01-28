@@ -11,3 +11,22 @@
   -ms-text-size-adjust: 100%;
   -moz-text-size-adjust: 100%;
 }
+
+.button {
+  transition: opacity 0.4s linear;
+  cursor: pointer;
+
+}
+
+.button:hover {
+  opacity: 0.4;
+}
+
+.link {
+  transition: opacity 0.4s linear;
+  cursor: pointer;
+}
+
+.link:hover {
+  opacity: 0.4;
+}

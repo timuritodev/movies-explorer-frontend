@@ -77,3 +77,16 @@
   color: #fff;
   background: #313131;
 }
+
+.movies-card__favourites {
+  margin-top: 18px;
+  align-self: center;
+  width: 100px;
+  height: 29px;
+  border-radius: 20px;
+  cursor: pointer;
+  border: none;
+  box-sizing: border-box;
+  background: center no-repeat url(../../../images/cross.svg) #313131;
+  font-size: 0;
+}

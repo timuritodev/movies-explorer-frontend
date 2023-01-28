@@ -3,12 +3,11 @@ import { Link } from "react-router-dom";
 import Navigation from "../Navigation/Navigation";
 import NavAuth from "./NavAuth/NavAuth";
 
-function Header() {
+function Header({ isMainPage }) {
   return (
-    <header className="header">
-      <Link className="header__logo" to="/"></Link>
-      <Navigation />
-      {/* <NavAuth /> */}
+    <header className={`header ${isMainPage ? "" : "header_dark"}`}>
+      <Link className="header__logo link" to="/" />
+      {isMainPage ? <NavAuth /> : <Navigation />}
     </header>
   );
 }
