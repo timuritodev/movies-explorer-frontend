@@ -40,7 +40,7 @@
   }
 
   .header__burger {
-    display: none;
+    display: block;
   }
 }
 
