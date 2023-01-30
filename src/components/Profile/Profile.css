@@ -67,3 +67,13 @@
 .profile__button_exit {
   color: #EE3465;
 }
+
+@media screen and (max-width: 425px) {
+  .profile {
+    padding: 70px 0 30px;
+  }
+  .profile-form {
+    width: 260px;
+    margin: 80px 0 379px;
+  }
+}

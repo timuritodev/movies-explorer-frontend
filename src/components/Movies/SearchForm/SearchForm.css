@@ -58,3 +58,24 @@
   cursor: pointer;
   border: none;
 }
+
+@media screen and (max-width: 768px) {
+  .search-form {
+    padding: 80px 30px 89px;
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .search-form {
+    padding: 81px 14px 40px;
+  }
+
+  .search-form__input {
+    font-family: Inter;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 18px;
+    letter-spacing: 0px;
+    text-align: left;
+  }
+}

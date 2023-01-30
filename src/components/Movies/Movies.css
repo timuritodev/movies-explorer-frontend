@@ -23,3 +23,16 @@
   letter-spacing: 0px;
   text-align: center;
 }
+
+@media screen and (max-width: 768px) {
+  .more__button {
+    margin-top: 32px;
+  }
+}
+
+@media screen and (max-width: 425px) {
+  .more__button {
+    margin-top: 32px;
+    width: 240px;
+  }
+}

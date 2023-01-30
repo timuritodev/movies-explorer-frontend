@@ -32,3 +32,41 @@
   text-align: center;
   color: #fff;
 }
+
+.not-found__link {
+  padding: 0;
+}
+
+@media screen and (max-width: 768px) {
+
+}
+
+@media screen and (max-width: 425px) {
+  .not-found {
+    min-height: 780px;
+    padding: 0 0 30px;
+  }
+  .not-found__title {
+    margin-top: 330px;
+    font-family: Inter;
+    font-size: 80px;
+    font-weight: 400;
+    line-height: 97px;
+    letter-spacing: 0em;
+    text-align: center;
+  }
+
+  .not-found__subtitle {
+    font-family: Inter;
+    font-size: 12px;
+    font-weight: 400;
+    line-height: 15px;
+    letter-spacing: 0em;
+    text-align: center;
+    margin: 10px 0 370px;
+  }
+
+  .not-found__link {
+
+  }
+}

@@ -12,6 +12,19 @@
   -moz-text-size-adjust: 100%;
 }
 
+.section__title {
+  font-family: Inter;
+  font-size: 22px;
+  font-weight: 400;
+  line-height: 27px;
+  letter-spacing: -0.04em;
+  text-align: left;
+  color: #FFFFFF;
+  padding:0 0 23px 0;
+  border-bottom: 0.5px solid;
+  margin: 0;
+}
+
 .button {
   transition: opacity 0.4s linear;
   cursor: pointer;
@@ -29,4 +42,26 @@
 
 .link:hover {
   opacity: 0.4;
+}
+
+@media screen  and (max-width: 768px){
+  .section__title {
+    font-family: Inter;
+    font-size: 22px;
+    font-weight: 400;
+    line-height: 27px;
+    letter-spacing: -0.04em;
+    text-align: left;
+  }
+}
+
+@media screen  and (max-width: 320px){
+  .section__title {
+    font-family: Inter;
+    font-size: 18px;
+    font-weight: 400;
+    line-height: 22px;
+    letter-spacing: -0.04em;
+    text-align: left;
+  }
 }

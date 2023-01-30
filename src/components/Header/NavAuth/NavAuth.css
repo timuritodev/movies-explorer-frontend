@@ -25,7 +25,13 @@
   background: #3DDC84;
 }
 
-.navigation-auth__link:hover {
-  cursor: pointer;
-  opacity: 0.8;
+@media screen and (max-width: 320px) {
+  .nav-auth__list {
+    gap: 2px;
+  }
+
+  .nav-auth__link {
+    padding: 5px 12px;
+    font-size: 10px;
+  }
 }
