@@ -1,9 +1,10 @@
 import React from "react";
-import mov1 from "../../../images/mov1.png"
-import mov2 from "../../../images/mov2.png"
-import mov3 from "../../../images/mov3.png"
-import mov4 from "../../../images/mov4.png"
+import mov1 from "../../../images/mov1.png";
+import mov2 from "../../../images/mov2.png";
+import mov3 from "../../../images/mov3.png";
+import mov4 from "../../../images/mov4.png";
 import MoviesCard from "../MoviesCard/MoviesCard";
+import Preloader from "../../Preloader/Preloader";
 
 function MoviesCardList() {
   const moviesList = [
@@ -84,7 +85,7 @@ function MoviesCardList() {
 
   return (
     <section className="movies-cardlist">
-      {movies}
+      {movies ? movies : <Preloader />}
     </section>
   );
 }
