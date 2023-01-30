@@ -23,6 +23,7 @@
 }
 
 .header__burger {
+  display: none;
   width: 44px;
   height: 44px;
   margin: 0;
@@ -33,17 +34,13 @@
   border: none;
 }
 
-.header__burger_invisible {
-  display: none;
-}
-
 @media screen and (max-width: 768px) {
   .header {
     padding: 16px 30px;
   }
 
   .header__burger {
-    display: block;
+    display: none;
   }
 }
 
@@ -55,5 +52,9 @@
   .header__burger {
     width: 40px;
     height: 43px;
+  }
+
+  .header__burger_invisible {
+    display: none;
   }
 }

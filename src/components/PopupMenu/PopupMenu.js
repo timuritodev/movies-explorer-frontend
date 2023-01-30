@@ -8,9 +8,9 @@ function PopupMenu({ isOpen, togglePopupMenu }) {
         <button className="popup-menu__close button" type="button" onClick={togglePopupMenu}></button>
         <nav className="popup-menu__nav">
           <ul className="popup-menu__links">
-            <Link className="popup-menu__link link" to="/" onClick={togglePopupMenu}>Главная</Link>
-            <Link className="popup-menu__link popup-menu__link_line link" to="/movies" onClick={togglePopupMenu}>Фильмы</Link>
-            <Link className="popup-menu__link popup-menu__link_fav link" to="/saved-movies" onClick={togglePopupMenu}>Сохранённые фильмы</Link>
+            <li><Link className="popup-menu__link link" to="/" onClick={togglePopupMenu}>Главная</Link></li>
+            <li><Link className="popup-menu__link popup-menu__link_line link" to="/movies" onClick={togglePopupMenu}>Фильмы</Link></li>
+            <li><Link className="popup-menu__link popup-menu__link_fav link" to="/saved-movies" onClick={togglePopupMenu}>Сохранённые фильмы</Link></li>
           </ul>
           <Link className="popup-menu__link popup-menu__link_acc link" to="/">Аккаунт</Link>
         </nav>

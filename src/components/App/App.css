@@ -1,7 +1,8 @@
 .app {
   margin: auto;
+  max-width: 1280px;
+  max-width: 100%;
   min-width: 320px;
-  width: 100%;
   font-family: "Inter", Arial, sans-serif;
   background-color: #000;
   -moz-osx-font-smoothing: grayscale;

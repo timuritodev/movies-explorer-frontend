@@ -5,8 +5,8 @@ function NavAuth() {
   return (
     <nav className="nav-auth">
       <ul className="nav-auth__list">
-        <Link className="nav-auth__link link" to="/signup">Регистрация</Link>
-        <Link className="nav-auth__link nav-auth__link_log link" to="/sigin">Войти</Link>
+        <li><Link className="nav-auth__link link" to="/signup">Регистрация</Link></li>
+        <li><Link className="nav-auth__link nav-auth__link_log link" to="/signin">Войти</Link></li>
       </ul>
     </nav>
 );

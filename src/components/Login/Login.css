@@ -112,9 +112,17 @@
   color: #EE3465;
 }
 
+@media screen and (max-width: 768px) {
+  .login {
+    padding: 56px 0 30px;
+    min-height: 1133px;
+  }
+}
+
 @media screen and (max-width: 425px) {
   .login {
     padding: 56px 0 30px;
+    min-height: 829px;
   }
 
   .login__block {
