@@ -11,7 +11,7 @@
 
 @media screen and (max-width: 768px) {
   .movies-cardlist {
-    padding: 70px 30px 30px;
+    padding: 0 30px 30px;
     gap: 35px 24px;
     grid-template-columns: repeat(auto-fit, 342px);
   }
@@ -19,7 +19,7 @@
 
 @media screen and (max-width: 425px) {
   .movies-cardlist {
-    padding: 40px 10px 30px;
+    padding: 30px 10px 30px;
     gap: 10px;
     grid-template-columns: repeat(auto-fit, 300px);
   }

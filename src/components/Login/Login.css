@@ -4,14 +4,15 @@
   flex-direction: column;
   align-items: center;
   background: #202020;
+  height: 100vh;
 }
 
 .login__block {
   max-width: 396px;
-  margin: auto;
   display: flex;
   flex-direction: column;
   gap: 40px;
+  margin: 0;
 }
 .login-form {
   min-width: 396px;
@@ -115,14 +116,12 @@
 @media screen and (max-width: 768px) {
   .login {
     padding: 56px 0 30px;
-    min-height: 1133px;
   }
 }
 
 @media screen and (max-width: 425px) {
   .login {
     padding: 56px 0 30px;
-    min-height: 829px;
   }
 
   .login__block {

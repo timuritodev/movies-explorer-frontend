@@ -9,7 +9,7 @@ function Footer() {
         <p className="footer__date">&copy; 2023</p>
         <div className="footer__info">
           <p className="footer__text">Яндекс.Практикум</p>
-          <Link className="footer__text link" to="https://github.com/sosalnet/movies-explorer-frontend">Github</Link>
+          <Link className="footer__text link" to="https://github.com/sosalnet/movies-explorer-frontend" target="_blank">Github</Link>
         </div>
       </div>
     </footer>
