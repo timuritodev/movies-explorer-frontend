@@ -7,7 +7,6 @@
   margin: auto;
   padding: 70px 70px 30px;
   background: #202020;
-  box-shadow: 10px #000;
 }
 
 @media screen and (max-width: 768px) {
