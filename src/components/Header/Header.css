@@ -29,12 +29,13 @@
   margin: 0;
   padding: 0;
   background-image: url(../../images/burger.svg);
-  background-color: initial;
-  background-size: contain;
+  background-color: unset;
+  background-size: 44px 44px;
+  background-repeat: no-repeat;
   border: none;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 800px) {
   .header {
     padding: 16px 30px;
   }
