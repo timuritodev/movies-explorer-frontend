@@ -1,0 +1,41 @@
+.navigation__links {
+  margin: 0;
+  padding: 0;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+}
+
+.navigation__link {
+  font-family: Inter;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 18px;
+  letter-spacing: 0em;
+  text-align: right;
+  color: #fff;
+  transition: opacity 0.4s linear;
+  text-decoration: none;
+  margin: 0 0 0 0;
+}
+
+.navigation__link_favourite {
+  font-weight: 400;
+  margin-right: 30px;
+}
+
+.navigation__link_acc {
+  font-weight: 400;
+  width: 100px;
+  text-align: center;
+  padding: 5px 0 5px 0;
+  height: 22px;
+  background: #313131;
+  border-radius: 20px;
+}
+
+@media screen and (max-width: 768px) {
+  .navigation {
+    display: none;
+  }
+}

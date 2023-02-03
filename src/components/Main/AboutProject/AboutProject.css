@@ -1,0 +1,124 @@
+.about-project {
+  padding: 110px 65px 110px 65px;
+  background: #202020;
+}
+
+.about-project__info {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  box-sizing: border-box;
+  column-gap: 40px;
+  row-gap: 26px;
+  margin: 0;
+  padding: 70px 0 110px 0;
+}
+
+.about-project__title {
+  font-family: Inter;
+  font-size: 20px;
+  font-weight: 400;
+  line-height: 24px;
+  letter-spacing: -0.04em;
+  text-align: left;
+  margin: 0;
+  padding: 0;
+  color: #FFFFFF;
+}
+
+.about-project__subtitle {
+  font-family: Inter;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 20px;
+  letter-spacing: 0em;
+  text-align: left;
+  margin: 0;
+  padding: 0;
+  color: #FFFFFF;
+  max-width: 550px;
+}
+
+.about-project__time {
+  display: grid;
+  grid-template-columns: 25% 1fr;
+  grid-template-rows: repeat(2, 36px);
+  align-items: center;
+  box-sizing: border-box;
+  padding: 0;
+}
+
+.about-project__time-line {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: Inter;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 17px;
+  letter-spacing: 0em;
+  text-align: center;
+  margin: 0;
+  padding: 10px 0 9px 0;
+  color: #FFFFFF;
+  background-color: #303030;
+}
+
+.about-project__time-line_green {
+  color: #000;
+  background-color: #3DDC84;
+}
+
+.about-project__time-text {
+  font-family: Inter;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 17px;
+  letter-spacing: 0px;
+  text-align: center;
+  margin: 0;
+  padding: 0;
+  color: #8B8B8B;
+}
+
+@media screen and (max-width: 768px) {
+.about-project {
+  padding: 90px 50px 82px;
+}
+
+.about-project__info {
+  padding: 70px 0 93px;
+  column-gap: 30px;
+  row-gap: 22px;
+}
+
+.about-project__time {
+  grid-template-columns: 30% 1fr;
+}
+
+}
+
+@media screen and (max-width: 425px) {
+.about-project {
+  padding: 70px 18px;
+}
+
+.about-project__info {
+  padding: 60px 0;
+  grid-template-columns: repeat(1, 1fr);
+  row-gap: 16px;
+}
+
+.about-project__time-line_green {
+  padding: 0;
+  height: 100%;
+}
+
+.about-project__subtitle_num {
+  order: -1;
+  padding-bottom: 40px;
+}
+
+.about-project__title_first {
+  order: -2;
+}
+}
