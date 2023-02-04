@@ -1,7 +1,7 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import Header from '../Header/Header';
 import './App.css';
-import { Route, Routes, useLocation } from 'react-router-dom';
+import { Route, Routes, useLocation, useNavigate } from 'react-router-dom';
 import Main from '../Main/Main';
 import Footer from '../Footer/Footer';
 import Movies from '../Movies/Movies';
@@ -11,62 +11,154 @@ import Register from '../Register/Register';
 import Profile from '../Profile/Profile';
 import NotFound from '../NotFound/NotFound';
 import PopupMenu from '../PopupMenu/PopupMenu';
+import { mainApi } from '../../utils/MainApi';
+import { CurrentUserContext } from '../../contexts/CurrentUserContext';
+import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
 
 function App() {
 
-const [isMainPage, setIsMainPage] = useState(false);
-const [isPopupOpen, setIsPopupOpen] = useState(false);
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
 
-const { pathname } = useLocation();
-const urlHeaderRender = ['/', '/movies', '/saved-movies', '/profile'];
-const urlFooterRender = ['/', '/movies', '/saved-movies'];
+  const [currentUser, setCurrentUser] = useState({});
+  const [loggedIn, setLoggedIn] = useState(false);
 
-function CheckMainPage() {
-  pathname === '/' ? setIsMainPage(true) : setIsMainPage(false)
-}
+  const { pathname } = useLocation();
+  const urlHeaderRender = ['/', '/movies', '/saved-movies', '/profile'];
+  const urlFooterRender = ['/', '/movies', '/saved-movies'];
 
-useEffect(() => {
-  CheckMainPage();
-}, [pathname]);
+  const isMainPage = useMemo(() => pathname === '/' ? true : false, [pathname]);
+  let navigate = useNavigate();
 
-function compareUrl(urlList) {
-  for (let key in urlList) {
-    if (urlList[key] === pathname) {
-      return true;
+  const checkToken = () => {
+    const jwt = localStorage.getItem('jwt');
+    mainApi.setToken(jwt)
+    if (jwt) {
+      mainApi.getUserInfo(jwt)
+        .then((userData) => {
+          if (userData) {
+            console.log('tokenCheck', userData);
+            setCurrentUser(userData);
+            setLoggedIn(true);
+            navigate("/movies");
+          } else {
+            setLoggedIn(false);
+            navigate("/");
+          }
+        })
+        .catch((err) => {
+          setLoggedIn(false);
+          console.log(`Переданный токен некорректен: ${err}`);
+        });
+    } else {
+      setLoggedIn(false);
+      navigate("/");
     }
   }
-  return false;
-}
 
-const togglePopupMenu = () => {
-  setIsPopupOpen(!isPopupOpen);
-}
+  useEffect(() => {
+    checkToken();
+  }, [loggedIn])
+
+  const handleLogin = (userEmail, userPassword, resetLoginForm) => {
+    if (!userEmail || !userPassword) {
+      return;
+    }
+    mainApi
+      .authorize(userEmail, userPassword)
+      .then((data) => {
+        console.log('handleLogin', data);
+        if (data.token) {
+          localStorage.setItem("jwt", data.token);
+          setLoggedIn(true);
+          navigate("/movies");
+          resetLoginForm();
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+  const handleRegister = (userEmail, userPassword, userName, resetRegisterform) => {
+    mainApi
+      .register(userEmail, userPassword, userName)
+      .then((res) => {
+        console.log('handleRegister', res);
+        navigate('/signin');
+        resetRegisterform();
+        console.log("Успех регистрации", res);
+      })
+      .catch((err) => {
+        console.log("Ошибка регистрации", err);
+      });
+  };
+  const handleLogout = () => {
+    localStorage.removeItem("jwt");
+    navigate("/signin");
+    setLoggedIn(false);
+  };
+
+  function handleUpdateUser({ name, email }) {
+    mainApi.setUserInfo(name, email)
+      .then((userData) => {
+        setCurrentUser(userData.data);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+  }
+
+  function compareUrl(urlList) {
+    for (let key in urlList) {
+      if (urlList[key] === pathname) {
+        return true;
+      }
+    }
+    return false;
+  }
+
+  const togglePopupMenu = () => {
+    setIsPopupOpen(!isPopupOpen);
+  }
 
   return (
-    <div className="app">
-      {compareUrl(urlHeaderRender) ? <Header isMainPage={isMainPage} togglePopupMenu={togglePopupMenu}/> : null}
+    <CurrentUserContext.Provider value={currentUser}>
+      <div className="app">
+        {compareUrl(urlHeaderRender) ? <Header isMainPage={isMainPage} togglePopupMenu={togglePopupMenu} /> : null}
 
-      <Routes>
-      <Route exact path='/' element={<Main />}>
-        </Route>
-        <Route path='/movies' element={<Movies />}>
-        </Route>
-        <Route path='/saved-movies' element={<SavedMovies />}>
-        </Route>
-        <Route path='/profile' element={<Profile />}>
-        </Route>
-        <Route path='/signup' element={<Register />}>
-        </Route>
-        <Route path='/signin' element={<Login />}>
-        </Route>
-        <Route path="*" element={<NotFound />}>
-        </Route>
-      </Routes>
+        <Routes>
+          <Route exact path='/' element={<Main />}>
+          </Route>
+          <Route path='/movies' element={
+            <ProtectedRoute loggedIn={loggedIn}>
+              <Movies />
+            </ProtectedRoute>
+          }>
+          </Route>
+          <Route path='/saved-movies' element={
+            <ProtectedRoute loggedIn={loggedIn}>
+              <SavedMovies />
+            </ProtectedRoute>
+          }>
+          </Route>
+          <Route path='/profile' element={
+            <ProtectedRoute loggedIn={loggedIn}>
+              <Profile onEditProfile={handleUpdateUser} handleLogout={handleLogout} />
+            </ProtectedRoute>
+          }>
+          </Route>
+          <Route path='/signup' element={<Register handleRegister={handleRegister} />}>
+          </Route>
+          <Route path='/signin' element={<Login handleLogin={handleLogin} />}>
+          </Route>
+          <Route path="*" element={<NotFound />}>
+          </Route>
+        </Routes>
 
-      {compareUrl(urlFooterRender) ? <Footer /> : null}
+        {compareUrl(urlFooterRender) ? <Footer /> : null}
 
-      <PopupMenu isOpen={isPopupOpen} togglePopupMenu={togglePopupMenu} compareUrl={compareUrl}/>
-    </div>
+        <PopupMenu isOpen={isPopupOpen} togglePopupMenu={togglePopupMenu} compareUrl={compareUrl} />
+      </div>
+    </CurrentUserContext.Provider>
   );
 }
 
