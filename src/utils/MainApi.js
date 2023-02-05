@@ -1,6 +1,6 @@
 class MainApi {
   constructor(apiConfig) {
-      this._baseUrl = apiConfig.baseUrl;
+      this._url = apiConfig.url;
       this._headers = apiConfig.headers;
   }
 
@@ -15,30 +15,30 @@ class MainApi {
       return Promise.reject(`Ошибка: ${res.status}`);
   }
 
-  register(email, password, name) {
-    return fetch(`${this._baseUrl}/signup`, {
+  register(data) {
+    return fetch(`${this._url}/signup`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ email: email, password: password, name: name }),
+      body: JSON.stringify(data),
     })
     .then(this._checkResponse);
   };
 
-  authorize(email, password) {
-    return fetch(`${this._baseUrl}/signin`, {
+  authorize(data) {
+    return fetch(`${this._url}/signin`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({ email, password }),
+      body: JSON.stringify(data),
     })
     .then(this._checkResponse);
   };
 
   getUserInfo() {
-      return fetch(`${this._baseUrl}/users/me`, {
+      return fetch(`${this._url}/users/me`, {
               method: 'GET',
               headers: this._headers
           })
@@ -46,27 +46,27 @@ class MainApi {
   }
 
   // getCards() {
-  //     return fetch(`${this._baseUrl}/cards`, {
+  //     return fetch(`${this._url}/cards`, {
   //             method: 'GET',
   //             headers: this._headers
   //         })
   //         .then(this._checkResponse)
   // }
 
-  setUserInfo(name, email) {
-      return fetch(`${this._baseUrl}/users/me`, {
+  setUserInfo(data) {
+      return fetch(`${this._url}/users/me`, {
               method: 'PATCH',
               headers: this._headers,
               body: JSON.stringify({
-                  name: name,
-                  about: email
+                  name: data.name,
+                  email: data.email
               })
           })
           .then(this._checkResponse)
   }
 
 //   addNewCard(name, link) {
-//       return fetch(`${this._baseUrl}/cards`, {
+//       return fetch(`${this._url}/cards`, {
 //               method: 'POST',
 //               headers: this._headers,
 //               body: JSON.stringify({
@@ -78,7 +78,7 @@ class MainApi {
 //   }
 
 //   changeLikeCardStatus(id, isLiked) {
-//       return fetch(`${this._baseUrl}/cards/likes/${id}`, {
+//       return fetch(`${this._url}/cards/likes/${id}`, {
 //               method: isLiked ? 'PUT' : 'DELETE',
 //               headers: this._headers
 //           })
@@ -86,7 +86,7 @@ class MainApi {
 //   }
 
 //   deleteCard(id) {
-//       return fetch(`${this._baseUrl}/cards/${id}`, {
+//       return fetch(`${this._url}/cards/${id}`, {
 //               method: 'DELETE',
 //               headers: this._headers
 //           })
@@ -94,7 +94,7 @@ class MainApi {
 //   }
 
 //   addNewAvatar(avatar) {
-//       return fetch(`${this._baseUrl}/users/me/avatar`, {
+//       return fetch(`${this._url}/users/me/avatar`, {
 //               method: 'PATCH',
 //               headers: this._headers,
 //               body: JSON.stringify({
@@ -107,7 +107,7 @@ class MainApi {
 }
 
 export const mainApi = new MainApi({
-  baseUrl: 'http://localhost:3001',
+  url: 'http://localhost:3000',
   headers: {
       Authorization: '',
       'Content-Type': 'application/json'

@@ -35,7 +35,7 @@ function Login({ handleLogin }) {
           <label className="login-form__label">Пароль</label>
           <input className="login-form__input" name="password" id="password" type="password" value={password} onChange={handleChangePassword} placeholder="Пароль"></input>
           <span className="login-form__error"></span>
-          <button className="login-form__button" type="submit button">Войти</button>
+          <button className="login-form__button" name="submit" type="submit button">Войти</button>
           <p className="login-form__text">Ещё не зарегистрированы?<Link className="login-form__link link" to="/signup">{" "} Регистрация</Link></p>
         </form>
       </div>

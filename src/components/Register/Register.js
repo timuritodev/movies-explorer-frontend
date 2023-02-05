@@ -45,7 +45,7 @@ function Register({ handleRegister }) {
         <label className="login-form__label">Пароль</label>
         <input className="login-form__input" name="password" id="password"  type="password" placeholder="Пароль" value={password} onChange={handleChangePassword}></input>
         <span className="login-form__error"></span>
-        <button className="login-form__button button" type="submit">Зарегистрироваться</button>
+        <button className="login-form__button button" name="submit" type="submit">Зарегистрироваться</button>
         <p className="login-form__text">Уже зарегистрированы?<Link className="login-form__link link" to="/signin">{" "} Войти</Link></p>
       </form>
       </div>

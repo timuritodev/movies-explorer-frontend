@@ -33,7 +33,7 @@ function App() {
     const jwt = localStorage.getItem('jwt');
     mainApi.setToken(jwt)
     if (jwt) {
-      mainApi.getUserInfo(jwt)
+      mainApi.getUserInfo()
         .then((userData) => {
           if (userData) {
             console.log('tokenCheck', userData);
@@ -78,26 +78,27 @@ function App() {
         console.log(err);
       });
   };
-  const handleRegister = (userEmail, userPassword, userName, resetRegisterform) => {
+  const handleRegister = (userEmail, userPassword, userName, resetRegisterForm) => {
     mainApi
       .register(userEmail, userPassword, userName)
       .then((res) => {
         console.log('handleRegister', res);
         navigate('/signin');
-        resetRegisterform();
+        resetRegisterForm();
         console.log("Успех регистрации", res);
       })
       .catch((err) => {
         console.log("Ошибка регистрации", err);
       });
   };
+
   const handleLogout = () => {
     localStorage.removeItem("jwt");
     navigate("/signin");
     setLoggedIn(false);
   };
 
-  function handleUpdateUser({ name, email }) {
+  function handleUpdateUser(name, email) {
     mainApi.setUserInfo(name, email)
       .then((userData) => {
         setCurrentUser(userData.data);
