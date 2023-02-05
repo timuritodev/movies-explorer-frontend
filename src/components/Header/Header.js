@@ -3,12 +3,12 @@ import { Link } from "react-router-dom";
 import Navigation from "../Navigation/Navigation";
 import NavAuth from "./NavAuth/NavAuth";
 
-function Header({ isMainPage, togglePopupMenu }) {
+function Header({ loggedIn, isMainPage, togglePopupMenu }) {
   return (
     <header className={`header ${isMainPage ? "" : "header_dark"}`}>
       <Link className="header__logo link" to="/" />
-      {isMainPage ? <NavAuth /> : <Navigation />}
-      <button className={`button header__burger ${isMainPage ? "header__burger_invisible" : ""}`} type="button" onClick={togglePopupMenu}/>
+      {loggedIn ? <Navigation /> : <NavAuth /> }
+      <button className={`button header__burger ${loggedIn ? "" : "header__burger_invisible"}`} type="button" onClick={togglePopupMenu}/>
     </header>
   );
 }

@@ -14,6 +14,7 @@ import PopupMenu from '../PopupMenu/PopupMenu';
 import { mainApi } from '../../utils/MainApi';
 import { CurrentUserContext } from '../../contexts/CurrentUserContext';
 import ProtectedRoute from '../ProtectedRoute/ProtectedRoute';
+import { moviesApi } from '../../utils/MoviesApi';
 
 function App() {
 
@@ -83,7 +84,7 @@ function App() {
       .register(userEmail, userPassword, userName)
       .then((res) => {
         console.log('handleRegister', res);
-        navigate('/signin');
+        navigate("/signin");
         resetRegisterForm();
         console.log("Успех регистрации", res);
       })
@@ -94,6 +95,9 @@ function App() {
 
   const handleLogout = () => {
     localStorage.removeItem("jwt");
+    localStorage.removeItem("request");
+    localStorage.removeItem("moviesCards");
+    localStorage.removeItem("filtercheckbox");
     navigate("/signin");
     setLoggedIn(false);
   };
@@ -108,6 +112,19 @@ function App() {
       })
   }
 
+  function handleGetMovies(request, filtercheckbox) {
+    moviesApi
+      .getMoviesCards()
+      .then((moviesCards) => {
+        console.log(moviesCards);
+        localStorage.setItem("request", request);
+        localStorage.setItem("moviesCard", moviesCards);
+        localStorage.setItem("filtercheckbox", filtercheckbox);
+      })
+      .catch((err) => {
+        console.log(err);
+      })
+  }
   function compareUrl(urlList) {
     for (let key in urlList) {
       if (urlList[key] === pathname) {
@@ -124,14 +141,14 @@ function App() {
   return (
     <CurrentUserContext.Provider value={currentUser}>
       <div className="app">
-        {compareUrl(urlHeaderRender) ? <Header isMainPage={isMainPage} togglePopupMenu={togglePopupMenu} /> : null}
+        {compareUrl(urlHeaderRender) ? <Header loggedIn={loggedIn} isMainPage={isMainPage} togglePopupMenu={togglePopupMenu} /> : null}
 
         <Routes>
           <Route exact path='/' element={<Main />}>
           </Route>
           <Route path='/movies' element={
             <ProtectedRoute loggedIn={loggedIn}>
-              <Movies />
+              <Movies handleGetMovies={handleGetMovies}/>
             </ProtectedRoute>
           }>
           </Route>
