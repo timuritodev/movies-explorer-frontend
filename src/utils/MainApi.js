@@ -8,7 +8,7 @@ class MainApi {
     this._headers.Authorization = `Bearer ${token}`;
   }
 
-  _checkResponsel(res) {
+  _checkResponse(res) {
     if (res.ok) {
       return res.json();
     }
@@ -45,13 +45,12 @@ class MainApi {
       .then(this._checkResponse)
   }
 
-  // getCards() {
-  //     return fetch(`${this._url}/cards`, {
-  //             method: 'GET',
-  //             headers: this._headers
-  //         })
-  //         .then(this._checkResponse)
-  // }
+  getSavedMovies() {
+    return fetch(`${this._url}/movies`, {
+      headers: this._headers
+    })
+      .then(this._checkResponse)
+  }
 
   setUserInfo(data) {
     return fetch(`${this._url}/users/me`, {
@@ -65,45 +64,22 @@ class MainApi {
       .then(this._checkResponse)
   }
 
-  //   addNewCard(name, link) {
-  //       return fetch(`${this._url}/cards`, {
-  //               method: 'POST',
-  //               headers: this._headers,
-  //               body: JSON.stringify({
-  //                   name: name,
-  //                   link: link
-  //               })
-  //           })
-  //           .then(this._checkResponse)
-  //   }
+  saveMovie(data, token) {
+    return fetch(`${this._url}/movies`, {
+      method: 'POST',
+      headers: this._headers,
+      body: JSON.stringify(data)
+    })
+      .then(this._checkResponse)
+  }
 
-  //   changeLikeCardStatus(id, isLiked) {
-  //       return fetch(`${this._url}/cards/likes/${id}`, {
-  //               method: isLiked ? 'PUT' : 'DELETE',
-  //               headers: this._headers
-  //           })
-  //           .then(this._checkResponse);
-  //   }
-
-  //   deleteCard(id) {
-  //       return fetch(`${this._url}/cards/${id}`, {
-  //               method: 'DELETE',
-  //               headers: this._headers
-  //           })
-  //           .then(this._checkResponse);
-  //   }
-
-  //   addNewAvatar(avatar) {
-  //       return fetch(`${this._url}/users/me/avatar`, {
-  //               method: 'PATCH',
-  //               headers: this._headers,
-  //               body: JSON.stringify({
-  //                   avatar: avatar.avatar
-  //               })
-  //           })
-  //           .then(this._checkResponse);
-  //   }
-  // }
+    deleteMovie(id, token) {
+        return fetch(`${this._url}/movies/${id}`, {
+                method: 'DELETE',
+                headers: this._headers
+            })
+            .then(this._checkResponse);
+    }
 }
 
 export const mainApi = new MainApi({

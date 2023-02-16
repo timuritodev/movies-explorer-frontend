@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import FilterCheckbox from "../FilterCheckbox/FilterCheckbox";
 
-function SearchForm({ handleGetMovies }) {
+function SearchForm({ onSubmit }) {
 
   const lastFiltercheckbox = (localStorage.getItem("filtercheckbox") === "true") ? true : false;
   const lastSearch = localStorage.getItem("request");
@@ -19,7 +19,7 @@ function SearchForm({ handleGetMovies }) {
       console.log("Нужно ввести запрос");
       return;
     }
-    handleGetMovies(request, filtercheckbox);
+    onSubmit(request, filtercheckbox);
   }
 
   return (
