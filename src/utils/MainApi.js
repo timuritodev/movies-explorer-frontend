@@ -15,31 +15,30 @@ class MainApi {
     return Promise.reject(res.status);
   }
 
-  register(data) {
+  register(email, password, name) {
     return fetch(`${this._url}/signup`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(data),
+      body: JSON.stringify({ email: email, password: password, name: name }),
     })
       .then(this._checkResponse);
   };
 
-  authorize(data) {
+  authorize(email, password) {
     return fetch(`${this._url}/signin`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(data),
+      body: JSON.stringify({email, password}),
     })
       .then(this._checkResponse);
   };
 
   getUserInfo() {
     return fetch(`${this._url}/users/me`, {
-      method: 'GET',
       headers: this._headers
     })
       .then(this._checkResponse)
@@ -52,19 +51,19 @@ class MainApi {
       .then(this._checkResponse)
   }
 
-  setUserInfo(data) {
+  setUserInfo(name, email) {
     return fetch(`${this._url}/users/me`, {
       method: 'PATCH',
       headers: this._headers,
       body: JSON.stringify({
-        name: data.name,
-        email: data.email
+        name: name,
+        email: email
       })
     })
       .then(this._checkResponse)
   }
 
-  saveMovie(data, token) {
+  saveMovie(data) {
     return fetch(`${this._url}/movies`, {
       method: 'POST',
       headers: this._headers,
@@ -73,7 +72,7 @@ class MainApi {
       .then(this._checkResponse)
   }
 
-    deleteMovie(id, token) {
+    deleteMovie(id) {
         return fetch(`${this._url}/movies/${id}`, {
                 method: 'DELETE',
                 headers: this._headers
@@ -83,7 +82,7 @@ class MainApi {
 }
 
 export const mainApi = new MainApi({
-  url: 'http://localhost:3000',
+  url: "http://localhost:3000",
   headers: {
     Authorization: '',
     'Content-Type': 'application/json'

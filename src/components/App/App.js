@@ -21,17 +21,12 @@ function App() {
 
   const [isPopupOpen, setIsPopupOpen] = useState(false);
 
-  const [currentUser, setCurrentUser] = useState({});
+  const [currentUser, setCurrentUser] = useState({ name: "", email: "" });
   const [loggedIn, setLoggedIn] = useState(false);
 
-  const [noMoviesFound, setNoMoviesFound] = useState(false);
-  const [noSavedMoviesFound, setNoSavedMoviesFound] = useState(false);
-  const [loadingMoviesData, setLoadingMoviesData] = useState(false);
-  const [savedMoviesFound, setSavedMoviesFound] = useState([]);
-  const [moviesData, setMoviesData] = useState([]);
-  const [getSavedMoviesResStatus, setGetSavedMoviesResStatus] = useState(null);
-  const [savedMoviesNull, setSavedMoviesNull] = useState(false);
-  const [moviesApiResStatus, setMoviesApiResStatus] = useState(null);
+  const [updateUserStatus, setUpdateUserStatus] = useState(false);
+  const [updateRegisterStatus, setUpdateRegisterStatus] = useState(false);
+  const [updateLoginStatus, setUpdateLoginStatus] = useState(false);
 
   const { pathname } = useLocation();
   const urlHeaderRender = ['/', '/movies', '/saved-movies', '/profile'];
@@ -47,9 +42,8 @@ function App() {
       mainApi.getUserInfo()
         .then((userData) => {
           if (userData) {
-            setCurrentUser(userData);
+            setCurrentUser(userData.user);
             setLoggedIn(true);
-            navigate("/movies");
           } else {
             setLoggedIn(false);
             navigate("/");
@@ -76,10 +70,11 @@ function App() {
           localStorage.setItem("jwt", data.token);
           setLoggedIn(true);
           navigate("/movies");
-          resetLoginForm();
+          resetLoginForm && resetLoginForm();
         }
       })
       .catch((err) => {
+        setUpdateLoginStatus(err);
         console.log(err);
       });
   };
@@ -87,12 +82,13 @@ function App() {
     mainApi
       .register(userEmail, userPassword, userName)
       .then((res) => {
-        console.log('handleRegister', res);
+        handleLogin(userEmail, userPassword);
         navigate("/signin");
-        resetRegisterForm();
+        resetRegisterForm && resetRegisterForm();
         console.log("Успех регистрации", res);
       })
       .catch((err) => {
+        setUpdateRegisterStatus(err);
         console.log("Ошибка регистрации", err);
       });
   };
@@ -100,18 +96,20 @@ function App() {
   const handleLogout = () => {
     localStorage.clear();
     setCurrentUser({});
-    setMoviesData([]);
-    setSavedMoviesFound([]);
     navigate("/signin");
     setLoggedIn(false);
   };
 
-  function handleUpdateUser(name, email) {
+  function handleUpdateUser(name, email, setIsEditDone) {
     mainApi.setUserInfo(name, email)
       .then((userData) => {
         setCurrentUser(userData.data);
+        setIsEditDone(true);
+        setUpdateUserStatus(200);
       })
       .catch((err) => {
+        setIsEditDone(false);
+        setUpdateUserStatus(err);
         console.log(err);
       })
   }
@@ -129,113 +127,9 @@ function App() {
     setIsPopupOpen(!isPopupOpen);
   }
 
-  const handleSearchMovData = (request, filtercheckbox) => {
-    setLoadingMoviesData(true);
-    localStorage.setItem("request", request);
-    localStorage.setItem("filtercheckbox", filtercheckbox);
-    moviesApi.getMoviesCards()
-      .then((res) => {
-        localStorage.setItem('movies', JSON.stringify(res));
-      })
-      .catch((err) => {
-        console.log(err);
-        setMoviesApiResStatus(false);
-      })
-      .finally(() => {
-        setLoadingMoviesData(false);
-      })
-
-    const localMoviesData = JSON.parse(localStorage.getItem('movies'));
-    if (localMoviesData) {
-      const filteredMov = searchFilter(request, filtercheckbox, localMoviesData);
-      if (filteredMov.length === 0) {
-        setNoMoviesFound(true);
-      } else {
-        setNoMoviesFound(false);
-      }
-      localStorage.setItem('filterer-previously-movies', JSON.stringify(filteredMov));
-      setMoviesData(filteredMov);
-    }
-  };
-
-  const loadSavedMovData = () => {
-    mainApi.getSavedMovies()
-      .then((res) => {
-        setGetSavedMoviesResStatus(res.status);
-        if (res.data.length === 0) {
-          setSavedMoviesNull(true);
-          setSavedMoviesFound(res.data);
-          return;
-        } else {
-          setSavedMoviesNull(false);
-          setSavedMoviesFound(res.data.reverse());
-        }
-      })
-      .catch((err) => {
-        console.log(err);
-        setMoviesApiResStatus(err);
-      })
-  }
-
-  const handleSearchSavedMovData = (request, filtercheckbox) => {
-    const filteredSavedMovies = searchFilter(request, filtercheckbox, savedMoviesFound);
-    if (filteredSavedMovies.length === 0) {
-      setNoSavedMoviesFound(true);
-    } else {
-      setNoSavedMoviesFound(false);
-    }
-    setSavedMoviesFound(filteredSavedMovies);
-  }
-
   useEffect(() => {
     checkToken();
   }, [loggedIn]);
-
-  const toggleFavMovInLocal = (id) => {
-    const filteredMovies = JSON.parse(localStorage.getItem('filtered-previously-movies'));
-    filteredMovies.forEach((foundMov) => {
-      if (foundMov.id === id) {
-        if (foundMov.saved) {
-          foundMov.saved = false;
-        } else {
-          foundMov.saved = true;
-        }
-      }
-    })
-    localStorage.setItem('filtered-previously-movies', JSON.stringify(filteredMovies));
-    setMoviesData(filteredMovies);
-  }
-
-  const getSavedMoviesForPageMovies = (cardLocalId) => {
-    return mainApi.getSavedMovies()
-      .then((res) => {
-        return res.data;
-      })
-      .catch((err) => {
-        console.log(err);
-      })
-  }
-
-  const deleteSavedMovieFromPageMovies = async (id) => {
-    const savedMovies = await getSavedMoviesForPageMovies();
-    let serverId = "";
-    savedMovies.forEach((foundMovie) => {
-      if (foundMovie.movieId === id) {
-        serverId = foundMovie._id;
-      }
-    })
-    mainApi.deleteSavedMovie(serverId)
-      .then((res) => {
-
-      })
-      .catch((err) => {
-        console.log(err);
-      })
-      .finally(() => {
-        toggleFavMovInLocal(id);
-        console.log('delete movie from local');
-      })
-  }
 
   const handleSaveFavMovie = (data) => {
     const token = localStorage.getItem('jwt');
@@ -248,32 +142,11 @@ function App() {
           console.log(err);
         })
         .finally(() => {
-          toggleFavMovInLocal(data.movieId);
+
         })
     } else {
       console.log('пользователь не обнаружен');
     }
-  }
-
-  const handleDeleteSavedMovie = (serverId, localId) => {
-    const token = localStorage.getItem('jwt');
-    if (token) {
-      mainApi.deleteSavedMovie(serverId, token)
-        .then((res) => {
-          toggleFavMovInLocal(localId);
-          savedMoviesFound.forEach((item, index) => {
-            if (item._id === serverId) {
-              delete savedMoviesFound[index];
-              setSavedMoviesFound(savedMoviesFound);
-            }
-          });
-        })
-        .catch((err) => {
-          console.log(err);
-        })
-        .finally(() => {
-        })
-    };
   }
 
   return (
@@ -286,42 +159,33 @@ function App() {
           </Route>
           <Route path='/movies' element={
             <ProtectedRoute loggedIn={loggedIn}>
-              <Movies
-                noMoviesFound={noMoviesFound}
-                isLoadingData={loadingMoviesData}
-                resStatus={moviesApiResStatus}
-                onSubmit={handleSearchMovData}
-                moviesData={moviesData}
-                onSaveMovie={handleSaveFavMovie}
-                onDeleteSavedMovie={deleteSavedMovieFromPageMovies}
-              />
+              <Movies />
             </ProtectedRoute>
           }>
           </Route>
           <Route path='/saved-movies' element={
             <ProtectedRoute loggedIn={loggedIn}>
-              <SavedMovies
-                loadSavedMovData={loadSavedMovData}
-                savedMoviesNull={savedMoviesNull}
-                isLoadingData={loadingMoviesData}
-                noSavedMoviesFound={noSavedMoviesFound}
-                savedMovies={savedMoviesFound}
-                handleSearchSavedMovData={handleSearchSavedMovData}
-                onDeleteSavedMovie={handleDeleteSavedMovie}
-                getSavedMoviesResStatus={getSavedMoviesResStatus}
-              />
+              <SavedMovies />
             </ProtectedRoute>
           }>
           </Route>
           <Route path='/profile' element={
             <ProtectedRoute loggedIn={loggedIn}>
-              <Profile onEditProfile={handleUpdateUser} handleLogout={handleLogout} />
+              <Profile onEditProfile={handleUpdateUser} handleLogout={handleLogout} updateUserStatus={updateUserStatus} />
             </ProtectedRoute>
           }>
           </Route>
-          <Route path='/signup' element={<Register handleRegister={handleRegister} />}>
+          <Route path='/signup' element={
+            <ProtectedRoute loggedIn={!loggedIn}>
+              <Register handleRegister={handleRegister} handleLogin={handleLogin} updateRegisterStatus={updateRegisterStatus} />
+            </ProtectedRoute>
+          }>
           </Route>
-          <Route path='/signin' element={<Login handleLogin={handleLogin} />}>
+          <Route path='/signin' element={
+            <ProtectedRoute loggedIn={!loggedIn}>
+              <Login handleLogin={handleLogin} updateLoginStatus={updateLoginStatus}/>
+            </ProtectedRoute>
+          }>
           </Route>
           <Route path="*" element={<NotFound />}>
           </Route>
