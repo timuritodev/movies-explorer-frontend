@@ -6,7 +6,6 @@ function MoviesCardList({
   locationPathname,
   data,
   onSaveMovie,
-  onDeleteSavedMovie,
 }) {
 
   const size = useSize();
@@ -37,7 +36,7 @@ function MoviesCardList({
     }
   }
 
-  const [renderChange, setRenderChange] = useState(false);
+  const [isSizeChanged, setIsSizeChanged] = useState(true);
   const [moviesToRender, setMoviesToRender] = useState([]);
   const [showButtonActive, setShowButtonActive] = useState(false);
   const [numberOfMoviesToRender, setNumberOfMoviesToRender] = useState(0);
@@ -60,9 +59,10 @@ function MoviesCardList({
   };
 
   const clickShowMoreMoviesButton = () => {
-    setRenderChange(!renderChange);
     if (data) {
       setMoviesToRender(data.slice(0, moviesToRender.length + numberOfMoviesToAdd));
+      let math = moviesToRender.length + numberOfMoviesToAdd;
+      setNumberOfMoviesToRender(math);
       if (moviesToRender.length >= data.length - numberOfMoviesToAdd) {
         setShowButtonActive(false);
       }
@@ -75,22 +75,21 @@ function MoviesCardList({
 
   useEffect(() => {
     if (data) {
-      setMoviesToRender(data.slice(0, numberOfMoviesToAdd));
-      if (data.length <= numberOfMoviesToAdd) {
+      setMoviesToRender(data.slice(0, numberOfMoviesToRender));
+      if (data.length <= numberOfMoviesToRender) {
         setShowButtonActive(false);
       } else {
         setShowButtonActive(true);
-      }
+      };
     }
-  }, [data, numberOfMoviesToRender]);
+  }, [numberOfMoviesToRender])
 
   const moviesCardsMarkup = moviesToRender.map((item) => (
     <MoviesCard
-      key={item._id || item._id}
+      key={item.id || item._id}
       data={item}
       locationPathname={locationPathname}
       onSaveMovie={onSaveMovie}
-      onDeleteSavedMovie={onDeleteSavedMovie}
     />
   ))
 
@@ -101,7 +100,12 @@ function MoviesCardList({
       </section>
       {showButtonActive ? (
         <div className="movies__button">
-          <button className="more__button button" type="button" onClick={clickShowMoreMoviesButton}>Ещё</button>
+          <button
+            className="more__button button"
+            type="button"
+            onClick={clickShowMoreMoviesButton}
+          >
+            Ещё</button>
         </div>
       ) : null}
     </>

@@ -27,6 +27,7 @@ class MainApi {
   };
 
   authorize(email, password) {
+    debugger;
     return fetch(`${this._url}/signin`, {
       method: "POST",
       headers: {
@@ -53,7 +54,7 @@ class MainApi {
 
   setUserInfo(name, email) {
     return fetch(`${this._url}/users/me`, {
-      method: 'PATCH',
+      method: "PATCH",
       headers: this._headers,
       body: JSON.stringify({
         name: name,
@@ -65,7 +66,7 @@ class MainApi {
 
   saveMovie(data) {
     return fetch(`${this._url}/movies`, {
-      method: 'POST',
+      method: "POST",
       headers: this._headers,
       body: JSON.stringify(data)
     })
@@ -74,7 +75,7 @@ class MainApi {
 
     deleteMovie(id) {
         return fetch(`${this._url}/movies/${id}`, {
-                method: 'DELETE',
+                method: "DELETE",
                 headers: this._headers
             })
             .then(this._checkResponse);
@@ -82,9 +83,10 @@ class MainApi {
 }
 
 export const mainApi = new MainApi({
-  url: "http://localhost:3000",
+  // url: "http://localhost:3001",
+  url: "http://api.diploma-sosalnet.nomoredomains.club",
   headers: {
-    Authorization: '',
-    'Content-Type': 'application/json'
+    Authorization: "",
+    "Content-Type": "application/json"
   }
 });
