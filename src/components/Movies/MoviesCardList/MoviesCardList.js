@@ -75,14 +75,24 @@ function MoviesCardList({
 
   useEffect(() => {
     if (data) {
-      setMoviesToRender(data.slice(0, numberOfMoviesToRender));
-      if (data.length <= numberOfMoviesToRender) {
-        setShowButtonActive(false);
+      if (isSizeChanged) {
+        setIsSizeChanged(false)
+        setMoviesToRender(data.slice(0, numberOfMoviesToRender));
+        if (data.length <= numberOfMoviesToRender) {
+          setShowButtonActive(false);
+        } else {
+          setShowButtonActive(true);
+        };
       } else {
-        setShowButtonActive(true);
-      };
+        setMoviesToRender(data.slice(0, numberOfMoviesToRender));
+        if (data.length <= numberOfMoviesToRender) {
+          setShowButtonActive(false);
+        } else {
+          setShowButtonActive(true);
+        };
+      }
     }
-  }, [numberOfMoviesToRender])
+  }, [data])
 
   const moviesCardsMarkup = moviesToRender.map((item) => (
     <MoviesCard

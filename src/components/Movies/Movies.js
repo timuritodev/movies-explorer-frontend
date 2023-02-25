@@ -5,63 +5,47 @@ import { useLocation } from "react-router-dom";
 import Preloader from "../Preloader/Preloader";
 
 function Movies({
+  filterMovies,
   isLoadingData,
-  resStatus,
+  isMoviesApiError,
   moviesData,
-  onSubmit,
   onSaveMovie,
-  onDeleteSavedMovie,
-  isNoMoviesFound }) {
+}) {
 
   let location = useLocation();
 
-  const [isMoviesApiError, setIsMoviesApiError] = useState(false);
+  const savedSearchName = localStorage.getItem("search-name") || "";
+  const savedSearchShorts = (localStorage.getItem("search-isShorts") === "true") ? true : false;
 
-  const handleErrors = () => {
-    if (resStatus) {
-      switch (resStatus) {
-        case 200:
-          setIsMoviesApiError(false);
-          break;
-        default:
-          setIsMoviesApiError(true);
-          break;
-      }
-    }
-  }
-
-  const getSearchMoviesPrevious = (moviesData) => {
-    if (moviesData.length === 0) {
-      return JSON.parse(localStorage.getItem('filtered-previouslu-movies'))
-    }
-    return moviesData;
-  }
-
-  const handleSubmit = (request, filtercheckbox) => {
-    onSubmit(request, filtercheckbox);
+  const handleSubmit = (name, isShorts) => {
+    filterMovies(name, isShorts);
   }
 
   useEffect(() => {
-    handleErrors();
-  }, [resStatus])
+    const localMovies = JSON.parse(localStorage.getItem('movies') || "[]");
+
+    if (localMovies.length > 0) {
+      filterMovies(savedSearchName, savedSearchShorts);
+    }
+
+  }, []);
 
   return (
     <>
-      <SearchForm onSubmit={handleSubmit} />
-      {!isLoadingData && isNoMoviesFound && (
-        <span className="profile-form__input-error">NO_MOV_FOUND</span>
+      <SearchForm onSubmit={handleSubmit} savedSearchName={savedSearchName} savedSearchShorts={savedSearchShorts} locationPathname={location.pathname} />
+      {!isLoadingData && moviesData.length === 0 && (
+        <span className="movies__text">Ничего не найдено</span>
       )}
-      {!isLoadingData && (
+      {isLoadingData && (
         <Preloader />
       )}
       {isMoviesApiError && (
-        <span className="profile-form__input-error">MOV_ERR_TEXT</span>
+        <span className="movies__text">Проблема с сервером или соединением</span>
       )}
       <MoviesCardList
-        data = {getSearchMoviesPrevious(moviesData)}
-        locationPathname = {location.pathname}
-        onSaveMovie = {onSaveMovie}
-        onDeleteSavedMovie = {onDeleteSavedMovie}
+        data={moviesData}
+        locationPathname={location.pathname}
+        onSaveMovie={onSaveMovie}
       />
     </>
   );

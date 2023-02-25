@@ -27,13 +27,12 @@ class MainApi {
   };
 
   authorize(email, password) {
-    debugger;
     return fetch(`${this._url}/signin`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
       },
-      body: JSON.stringify({email, password}),
+      body: JSON.stringify({ email, password }),
     })
       .then(this._checkResponse);
   };
@@ -73,18 +72,18 @@ class MainApi {
       .then(this._checkResponse)
   }
 
-    deleteMovie(id) {
-        return fetch(`${this._url}/movies/${id}`, {
-                method: "DELETE",
-                headers: this._headers
-            })
-            .then(this._checkResponse);
-    }
+  deleteMovie(id) {
+    return fetch(`${this._url}/movies/${id}`, {
+      method: "DELETE",
+      headers: this._headers
+    })
+      .then(this._checkResponse);
+  }
 }
 
 export const mainApi = new MainApi({
-  // url: "http://localhost:3001",
-  url: "http://api.diploma-sosalnet.nomoredomains.club",
+  url: "http://localhost:3001",
+  // url: "http://api.diploma-sosalnet.nomoredomains.club",
   headers: {
     Authorization: "",
     "Content-Type": "application/json"

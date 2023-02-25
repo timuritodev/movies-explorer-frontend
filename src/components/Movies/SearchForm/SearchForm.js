@@ -1,35 +1,43 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import FilterCheckbox from "../FilterCheckbox/FilterCheckbox";
 
-function SearchForm({ onSubmit }) {
+function SearchForm({ onSubmit, savedSearchName, savedSearchShorts, locationPathname }) {
 
-  const lastFiltercheckbox = (localStorage.getItem("filtercheckbox") === "true") ? true : false;
-  const lastSearch = localStorage.getItem("request");
+  const [searchName, setSearchName] = useState(savedSearchName);
+  const [searchShorts, setSearchShorts] = useState(savedSearchShorts);
+  const [isRequestEmpty, setIsRequestEmpty] = useState(false);
 
-  const [filtercheckbox, setFiltercheckbox] = useState(lastFiltercheckbox);
-  const [request, setReqeust] = useState("" || lastSearch);
-
-  const handleRequest = (evt) => {
-    setReqeust(evt.target.value);
+  const handleSearchName = (evt) => {
+    if (evt.target.value.length > 0) {
+      setIsRequestEmpty(false);
+    }
+    setSearchName(evt.target.value);
   }
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    if (request === "") {
-      console.log("Нужно ввести запрос");
+    if (locationPathname === '/movies' && searchName.length === 0) {
+      setIsRequestEmpty(true);
       return;
     }
-    onSubmit(request, filtercheckbox);
+    setIsRequestEmpty(false);
+    onSubmit(searchName, searchShorts);
+  }
+
+  const handleCheckbox = (checkboxStatus) => {
+    onSubmit(searchName, checkboxStatus);
+    setSearchShorts(checkboxStatus);
   }
 
   return (
     <section className="search-form">
       <form className="search-form__form" name="search-form" onSubmit={handleSubmit}>
         <div className="search-form__block">
-          <input className="search-form__input" id="search-input" name="search-input" type="text" placeholder="Фильм" onChange={handleRequest} required />
+          <input className="search-form__input" id="search-input" name="search-input" type="text" placeholder="Фильм" value={searchName} onChange={handleSearchName} />
           <button className="search-form__button button" type="submit">Найти</button>
         </div>
-        <FilterCheckbox filtercheckbox={filtercheckbox} handleCheckbox={setFiltercheckbox}/>
+        <span className="movies__text">{isRequestEmpty && "Нужно ввести ключевое слово"}</span>
+        <FilterCheckbox filtercheckbox={searchShorts} handleCheckbox={handleCheckbox} />
       </form>
     </section>
   );
