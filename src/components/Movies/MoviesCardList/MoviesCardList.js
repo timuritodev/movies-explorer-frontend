@@ -105,6 +105,7 @@ function MoviesCardList({
         setShowButtonActive(true);
       };
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [numberOfMoviesToRender])
 
   const moviesCardsMarkup = moviesToRender.map((item) => (
