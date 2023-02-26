@@ -30,6 +30,7 @@ function Login({ handleLogin, updateLoginStatus }) {
 
   useEffect(() => {
     handleApiMessage()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [updateLoginStatus]);
 
   function makeFinalValidation() {
@@ -82,6 +83,7 @@ function Login({ handleLogin, updateLoginStatus }) {
 
   useEffect(() => {
     makeFinalValidation()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [email, password])
 
   return (

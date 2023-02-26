@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useEffect } from "react";
 import MoviesCardList from "./MoviesCardList/MoviesCardList";
 import SearchForm from "./SearchForm/SearchForm";
 import { useLocation } from "react-router-dom";
@@ -27,7 +27,7 @@ function Movies({
     if (localMovies.length > 0) {
       filterMovies(savedSearchName, savedSearchShorts);
     }
-
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (

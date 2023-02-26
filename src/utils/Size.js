@@ -13,6 +13,7 @@ function useSize() {
     let timeOutId = null;
 
     const handleResize = () => {
+      //debounce function
       clearTimeout(timeOutId);
       timeOutId = setTimeout(() => {
         setSize({

@@ -82,8 +82,8 @@ class MainApi {
 }
 
 export const mainApi = new MainApi({
-  url: "http://localhost:3001",
-  // url: "http://api.diploma-sosalnet.nomoredomains.club",
+  // url: "http://localhost:3001",
+  url: "https://api.diploma-sosalnet.nomoredomains.club",
   headers: {
     Authorization: "",
     "Content-Type": "application/json"

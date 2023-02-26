@@ -33,6 +33,7 @@ function Register({ handleRegister, updateRegisterStatus, handleLogin }) {
 
   useEffect(() => {
     handleApiMessage()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [updateRegisterStatus]);
 
   function handleChangeName(evt) {
@@ -102,6 +103,7 @@ function Register({ handleRegister, updateRegisterStatus, handleLogin }) {
 
   useEffect(() => {
     makeFinalValidation();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [email, password, isNameValid]);
 
   return (

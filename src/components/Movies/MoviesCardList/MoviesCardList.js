@@ -71,6 +71,7 @@ function MoviesCardList({
 
   useEffect(() => {
     countNumberOfMoviesToRender();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [size.width]);
 
   useEffect(() => {
@@ -92,7 +93,19 @@ function MoviesCardList({
         };
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [data])
+
+  useEffect(() => {
+    if (data) {
+      setMoviesToRender(data.slice(0, numberOfMoviesToRender));
+      if (data.length <= numberOfMoviesToRender) {
+        setShowButtonActive(false);
+      } else {
+        setShowButtonActive(true);
+      };
+    }
+  }, [numberOfMoviesToRender])
 
   const moviesCardsMarkup = moviesToRender.map((item) => (
     <MoviesCard
