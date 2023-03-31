@@ -39,6 +39,17 @@
   border: none;
 }
 
+.section-text_movies {
+  display: flex;
+  justify-content: center;
+  color:#fff;
+  background-color: #202020;
+  font-family: Inter;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 18px;
+  letter-spacing: 0px;
+}
 .search-form__button {
   margin: 2px 0 0 0;
   padding: 0;

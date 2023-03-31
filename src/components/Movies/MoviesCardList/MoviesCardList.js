@@ -1,92 +1,93 @@
-import React from "react";
-import mov1 from "../../../images/mov1.png";
-import mov2 from "../../../images/mov2.png";
-import mov3 from "../../../images/mov3.png";
-import mov4 from "../../../images/mov4.png";
+import React, { useState, useEffect } from "react";
 import MoviesCard from "../MoviesCard/MoviesCard";
-import Preloader from "../../Preloader/Preloader";
+import useWindowSize from "../../../utils/windowSize";
+import { breakpoints } from "../../../utils/windowSize";
 
-function MoviesCardList() {
-  const moviesList = [
-    {
-      _id: 1,
-      image: mov1,
-      title: "Мистер Бэнкс",
-      duration: "1ч33м",
-      isFavourite: false,
-    },
-    {
-      _id: 2,
-      image: mov2,
-      title: "Мистер Бэнкс",
-      duration: "1ч33м",
-      isFavourite: true,
-    },
-    {
-      _id: 3,
-      image: mov3,
-      title: "Мистер Бэнкс",
-      duration: "1ч33м",
-      isFavourite: true,
-    },
-    {
-      _id: 4,
-      image: mov4,
-      title: "Мистер Бэнкс",
-      duration: "1ч33м",
-      isFavourite: true,
-    },
-    {
-      _id: 5,
-      image: mov1,
-      title: "Мистер Бэнкс",
-      duration: "1ч33м",
-      isFavourite: false,
-    },
-    {
-      _id: 6,
-      image: mov2,
-      title: "Мистер Бэнкс",
-      duration: "1ч33м",
-      isFavourite: false,
-    },
-    {
-      _id: 7,
-      image: mov3,
-      title: "Мистер Бэнкс",
-      duration: "1ч33м",
-      isFavourite: true,
-    },
-    {
-      _id: 8,
-      image: mov4,
-      title: "Мистер Бэнкс",
-      duration: "1ч33м",
-      isFavourite: true,
-    },
-    {
-      _id: 9,
-      image: mov1,
-      title: "Мистер Бэнкс",
-      duration: "1ч33м",
-      isFavourite: false,
-    },
-  ];
+function MoviesCardList({ path, data, saveMovie }) {
 
-  const movies = moviesList.map((card) => (
+  const [isScreenSizeChanged, setIsScreenSizeChanged] = useState(true);
+  const [renderedMovies, setRenderedMovies] = useState([]);
+  const [showButtonVisible, setShowButtonVisible] = useState(false);
+  const [maxRenderedMovies, setMaxRenderedMovies] = useState(0);
+  const [numberOfMoviesToAdd, setMoviesToAdd] = useState(0);
+  const size = useWindowSize();
+
+  const moviesCardsMarkup = renderedMovies.map((item) => (
     <MoviesCard
-      key={card._id}
-      image={card.image}
-      title={card.title}
-      duration={card.duration}
-      isFavourite={card.isFavourite}
+      key={item.id || item._id}
+      data={item}
+      path={path}
+      saveMovie={saveMovie}
     />
-  ));
+  ))
+
+  const clickShowMoreMoviesButton = () => {
+    if (data) {
+      setRenderedMovies(prevRenderedMovies => [
+        ...prevRenderedMovies,
+        ...data.slice(prevRenderedMovies.length, prevRenderedMovies.length + numberOfMoviesToAdd)
+      ]);
+
+      setMaxRenderedMovies(prevMaxRenderedMovies => prevMaxRenderedMovies + numberOfMoviesToAdd);
+
+      if (renderedMovies.length >= data.length - numberOfMoviesToAdd) {
+        setShowButtonVisible(false);
+      }
+    }
+  };
+
+  const setNumberOfMoviesBasedOnScreenWidth = () => {
+    if (size.width >= breakpoints.l.width) {
+      setMaxRenderedMovies(breakpoints.l.renderedMovies);
+      setMoviesToAdd(breakpoints.l.moviesToAdd);
+    } else if (size.width < breakpoints.l.width && size.width >= breakpoints.m.width) {
+      setMaxRenderedMovies(breakpoints.m.renderedMovies);
+      setMoviesToAdd(breakpoints.m.moviesToAdd);
+    } else if (size.width < breakpoints.s.width && size.width >= breakpoints.xs.width) {
+      setMaxRenderedMovies(breakpoints.s.renderedMovies);
+      setMoviesToAdd(breakpoints.s.moviesToAdd);
+    } else if (size.width < breakpoints.xs.width) {
+      setMaxRenderedMovies(breakpoints.xs.renderedMovies);
+      setMoviesToAdd(breakpoints.xs.moviesToAdd);
+    };
+  };
+
+  useEffect(() => {
+    setNumberOfMoviesBasedOnScreenWidth();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [size.width]);
+
+  useEffect(() => {
+    if (data && isScreenSizeChanged) {
+      setRenderedMovies(data.slice(0, maxRenderedMovies));
+      setIsScreenSizeChanged(false);
+      setShowButtonVisible(data.length > maxRenderedMovies);
+    }
+  }, [data, isScreenSizeChanged, maxRenderedMovies]);
+
+  useEffect(() => {
+    if (data) {
+      setRenderedMovies(data.slice(0, maxRenderedMovies));
+      setShowButtonVisible(data.length > maxRenderedMovies);
+    }
+  }, [data, maxRenderedMovies]);
 
   return (
-    <section className="movies-cardlist">
-      {movies ? movies : <Preloader />}
-    </section>
+    <>
+      <section className="movies-cardlist">
+        {moviesCardsMarkup}
+      </section>
+      {showButtonVisible ? (
+        <div className="movies__button">
+          <button
+            className="more__button button"
+            type="button"
+            onClick={clickShowMoreMoviesButton}
+          >
+            Ещё</button>
+        </div>
+      ) : null}
+    </>
   );
 }
 

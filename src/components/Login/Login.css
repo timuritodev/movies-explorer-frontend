@@ -113,6 +113,10 @@
   color: #EE3465;
 }
 
+.login-form__button_disabled {
+  background-color:#5f6c81;
+}
+
 @media screen and (max-width: 768px) {
   .login {
     padding: 56px 0 30px;

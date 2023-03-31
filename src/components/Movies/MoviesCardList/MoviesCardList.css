@@ -9,6 +9,12 @@
   background: #202020;
 }
 
+.movies-cardlist__alert {
+  text-align: center;
+  font-weight: 500;
+  font-size: 20px;
+}
+
 @media screen and (max-width: 768px) {
   .movies-cardlist {
     padding: 0 30px 30px;
