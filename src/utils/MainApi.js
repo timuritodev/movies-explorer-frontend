@@ -84,7 +84,7 @@ class MainApi {
 }
 
 export const mainApi = new MainApi({
-  url: Local_api_url,
+  url: Api_url,
   headers: {
     Authorization: "",
     "Content-Type": "application/json"
