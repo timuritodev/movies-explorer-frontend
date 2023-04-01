@@ -15,10 +15,11 @@ function Profile({ handleUpdate, handleLogout }) {
   const [inputUseremailError, setInputUseremailError] = useState("");
   const [isUseremailValid, setIsUseremailValid] = useState(false);
 
-  // eslint-disable-next-line no-unused-vars
   const [infoText, setInfoText] = useState("");
   const [isEdit, setIsEdit] = useState(false);
   const [formIsValid, setFormIsValid] = useState(false);
+
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const errorMessages = {
     200: "Данные были обновлены",
@@ -88,8 +89,13 @@ function Profile({ handleUpdate, handleLogout }) {
 
   function handleUpdateUser(evt) {
     evt.preventDefault();
-    setIsEdit(false);
-    handleUpdate(newUsername, newUsermail, setIsEdit);
+    setIsSubmitting(true);
+    handleUpdate(newUsername, newUsermail)
+      .then(() => {
+        setIsEdit(false);
+        setIsSubmitting(false);
+      })
+      .catch(() => setIsSubmitting(false));
   }
 
   function handleApiMessage(updatedCondition) {
@@ -140,15 +146,17 @@ function Profile({ handleUpdate, handleLogout }) {
             value={newUsermail}
             onChange={handleUseremailChange}
             required
+            disabled={isSubmitting}
           />
         </div>
         <span className="login-form__error">{inputUseremailError}</span>
       </form>
+      <span className={`login-form__error ${isEdit ? "profile-form__error_positive" : ""}`}>{infoText}</span>
       <button
-        className={`profile__button button ${formIsValid ? "" : "profile__button_disabled"}`}
+        className={`profile__button ${formIsValid ? "" : "profile__button_disabled"}`}
         type="submit"
         onClick={handleUpdateUser}
-        disabled={!formIsValid}
+        disabled={!formIsValid || isSubmitting}
       >
         Редактировать</button>
       <button

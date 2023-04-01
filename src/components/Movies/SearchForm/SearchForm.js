@@ -38,7 +38,7 @@ function SearchForm({ onSubmit, pathname }) {
           <input className="search-form__input" id="search-input" name="search-input" type="text" placeholder="Фильм" value={query} onChange={handleSearchInputChange} />
           <button className="search-form__button button" type="submit">Найти</button>
         </div>
-        <span className="movies__text">{isQueryEmpty && "Введите ключевое слово"}</span>
+        <span className="search-form__error">{isQueryEmpty && "Введите ключевое слово"}</span>
         <FilterCheckbox filterCheckbox={shortQuery} onClickCheckbox={onClickCheckbox} />
       </form>
     </section>

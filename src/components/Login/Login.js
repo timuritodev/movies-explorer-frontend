@@ -14,6 +14,8 @@ function Login({ handleLogin }) {
   const [formIsValid, setFormIsValid] = useState(false);
   const [infoText, setInfoText] = useState("");
 
+  const [isLoading, setIsLoading] = useState(false);
+
   const errorMessages = {
     401: "Неверный логин или пароль",
     500: "Попробуйте позже. Ошибка на сервере.",
@@ -53,7 +55,10 @@ function Login({ handleLogin }) {
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
+    setIsLoading(true);
     handleLogin(useremail, userpassword)
+      .then(() => setIsLoading(false))
+      .catch(() => setIsLoading(false));
   }
 
   function validation() {
@@ -101,6 +106,7 @@ function Login({ handleLogin }) {
             onChange={handleUseremailChange}
             placeholder="Email"
             required
+            disabled={isLoading}
           ></input>
           <span className="login-form__error">{inputUseremailError}</span>
           <label className="login-form__label">Пароль</label>
@@ -113,6 +119,7 @@ function Login({ handleLogin }) {
             onChange={handleUserpasswordChange}
             placeholder="Пароль"
             required
+            disabled={isLoading}
           ></input>
           <span className="login-form__error">{inputUserpasswordError}</span>
           <span className="login-form__error">{infoText}</span>

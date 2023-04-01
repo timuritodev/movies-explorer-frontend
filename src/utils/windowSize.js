@@ -1,28 +1,5 @@
 import { useState, useEffect } from "react";
 
-export const breakpoints = {
-xs: {
-width: 768,
-moviesToRender: 5,
-moviesToAdd: 1,
-},
-s: {
-width: 990,
-moviesToRender: 8,
-moviesToAdd: 2,
-},
-m: {
-width: 1024,
-moviesToRender: 12,
-moviesToAdd: 3,
-},
-l: {
-width: 1280,
-moviesToRender: 16,
-moviesToAdd: 4,
-}
-}
-
 const getWindowWidth = () => {
 return document.documentElement.clientWidth;
 }

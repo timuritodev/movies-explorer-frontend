@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import MoviesCard from "../MoviesCard/MoviesCard";
 import useWindowSize from "../../../utils/windowSize";
-import { breakpoints } from "../../../utils/windowSize";
+import { breakpoints } from "../../../utils/constants";
 
 function MoviesCardList({ path, data, saveMovie }) {
 
@@ -9,7 +9,7 @@ function MoviesCardList({ path, data, saveMovie }) {
   const [renderedMovies, setRenderedMovies] = useState([]);
   const [showButtonVisible, setShowButtonVisible] = useState(false);
   const [maxRenderedMovies, setMaxRenderedMovies] = useState(0);
-  const [numberOfMoviesToAdd, setMoviesToAdd] = useState(0);
+  const [numberOfMoviesToAdd, setNumberOfMoviesToAdd] = useState(0);
   const size = useWindowSize();
 
   const moviesCardsMarkup = renderedMovies.map((item) => (
@@ -37,18 +37,18 @@ function MoviesCardList({ path, data, saveMovie }) {
   };
 
   const setNumberOfMoviesBasedOnScreenWidth = () => {
-    if (size.width >= breakpoints.l.width) {
-      setMaxRenderedMovies(breakpoints.l.renderedMovies);
-      setMoviesToAdd(breakpoints.l.moviesToAdd);
-    } else if (size.width < breakpoints.l.width && size.width >= breakpoints.m.width) {
-      setMaxRenderedMovies(breakpoints.m.renderedMovies);
-      setMoviesToAdd(breakpoints.m.moviesToAdd);
-    } else if (size.width < breakpoints.s.width && size.width >= breakpoints.xs.width) {
-      setMaxRenderedMovies(breakpoints.s.renderedMovies);
-      setMoviesToAdd(breakpoints.s.moviesToAdd);
-    } else if (size.width < breakpoints.xs.width) {
-      setMaxRenderedMovies(breakpoints.xs.renderedMovies);
-      setMoviesToAdd(breakpoints.xs.moviesToAdd);
+    if (size.width >= breakpoints.LargeSize.width) {
+      setMaxRenderedMovies(breakpoints.LargeSize.renderedMovies);
+      setNumberOfMoviesToAdd(breakpoints.LargeSize.moviesToAdd);
+    } else if (size.width < breakpoints.LargeSize.width && size.width >= breakpoints.BigSize.width) {
+      setMaxRenderedMovies(breakpoints.BigSize.renderedMovies);
+      setNumberOfMoviesToAdd(breakpoints.BigSize.moviesToAdd);
+    } else if (size.width < breakpoints.MediumSize.width && size.width >= breakpoints.SmallSize.width) {
+      setMaxRenderedMovies(breakpoints.MediumSize.renderedMovies);
+      setNumberOfMoviesToAdd(breakpoints.MediumSize.moviesToAdd);
+    } else if (size.width < breakpoints.SmallSize.width) {
+      setMaxRenderedMovies(breakpoints.SmallSize.renderedMovies);
+      setNumberOfMoviesToAdd(breakpoints.SmallSize.moviesToAdd);
     };
   };
 
@@ -67,10 +67,25 @@ function MoviesCardList({ path, data, saveMovie }) {
 
   useEffect(() => {
     if (data) {
-      setRenderedMovies(data.slice(0, maxRenderedMovies));
-      setShowButtonVisible(data.length > maxRenderedMovies);
+      if (isScreenSizeChanged) {
+        setIsScreenSizeChanged(false)
+        setRenderedMovies(data.slice(0, maxRenderedMovies));
+        if (data.length <= maxRenderedMovies) {
+          setShowButtonVisible(false);
+        } else {
+          setShowButtonVisible(true);
+        };
+      } else {
+        setRenderedMovies(data.slice(0, maxRenderedMovies));
+        if (data.length <= maxRenderedMovies) {
+          setShowButtonVisible(false);
+        } else {
+          setShowButtonVisible(true);
+        };
+      }
     }
-  }, [data, maxRenderedMovies]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [data, isScreenSizeChanged, maxRenderedMovies])
 
   return (
     <>

@@ -18,11 +18,13 @@ function Register({ handleRegister }) {
   const [formIsValid, setFormIsValid] = useState(false);
   const [infoText, setInfoText] = useState("");
 
+  const [isLoading, setIsLoading] = useState(false);
+
   const errorMessages = {
     409: "Этот адрес электронной почты уже зарегистрирован.",
     500: "Произошла ошибка на сервере. Пожалуйста, повторите попытку позже.",
     default: "Произошла ошибка. Пожалуйста, повторите попытку позже.",
-    };
+  };
 
   function handleUsernameChange(evt) {
     const inputs = evt.target.value;
@@ -84,7 +86,10 @@ function Register({ handleRegister }) {
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
+    setIsLoading(true);
     handleRegister(username, useremail, userpassword)
+      .then(() => setIsLoading(false))
+      .catch(() => setIsLoading(false));
   }
 
   useEffect(() => {
@@ -123,6 +128,7 @@ function Register({ handleRegister }) {
             value={username}
             onChange={handleUsernameChange}
             required
+            disabled={isLoading}
           ></input>
           <span className="login-form__error">{inputUsernameError}</span>
           <label className="login-form__label">E-mail</label>
@@ -135,6 +141,7 @@ function Register({ handleRegister }) {
             value={useremail}
             onChange={handleUseremailChange}
             required
+            disabled={isLoading}
           ></input>
           <span className="login-form__error">{inputUseremailError}</span>
           <label className="login-form__label">Пароль</label>
@@ -146,6 +153,8 @@ function Register({ handleRegister }) {
             placeholder="Пароль"
             value={userpassword}
             onChange={handleUserpasswordChange}
+            required
+            disabled={isLoading}
           ></input>
           <span className="login-form__error">{inputUserpasswordError}</span>
           <span className="login-form__error">{infoText}</span>

@@ -100,11 +100,9 @@ function SavedMovies() {
       localStorage.setItem('saved-moviesList', JSON.stringify(movies));
       setSavedMoviesList(movies);
 
-      setMoviesList((prevMovies) => {
-        const mergedMovies = mergeMovieLists(prevMovies, movies);
-        localStorage.setItem('moviesList', JSON.stringify(mergedMovies));
-        return mergedMovies;
-      });
+      const mergedMovies = mergeMovieLists(moviesList, movies);
+      localStorage.setItem('moviesList', JSON.stringify(mergedMovies));
+
     } catch (err) {
       console.error(err);
     }
