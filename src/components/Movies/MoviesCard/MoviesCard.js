@@ -1,5 +1,5 @@
 import React from "react";
-import { formatDuration } from "../../../utils/functions";
+import { formatDuration } from "../../../utils/constants";
 
 function MoviesCard({ data, path, saveMovie}) {
 

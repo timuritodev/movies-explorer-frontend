@@ -50,39 +50,35 @@ function Movies() {
       setFilteredMoviesList(filteredMovies);
     };
 
-    if (moviesList.length === 0) {
-      const localMovies = JSON.parse(localStorage.getItem('moviesList') || '[]');
+    let localMovies = JSON.parse(localStorage.getItem('moviesList') || '[]');
 
-      if (localMovies.length === 0) {
-        setIsMoviesLoading(true);
-        try {
-          const bitFilmsMovies = await moviesApi.getMoviesCards();
-          const savedMovies = await fetchSavedMovies();
-          const mergedMovies = mergeMovieLists(bitFilmsMovies, savedMovies);
+    if (localMovies.length === 0) {
+      setIsMoviesLoading(true);
+      try {
+        const bitFilmsMovies = await moviesApi.getMoviesCards();
+        const savedMovies = await fetchSavedMovies();
+        const mergedMovies = mergeMovieLists(bitFilmsMovies, savedMovies);
 
-          localStorage.setItem('moviesList', JSON.stringify(mergedMovies));
-          setMoviesList(mergedMovies);
-          filterMoviesList(mergedMovies);
-          setMoviesApiError(false);
-        } catch (error) {
-          console.log(error);
-          setMoviesApiError(true);
-        } finally {
-          setIsMoviesLoading(false);
-        }
-      } else {
-        setMoviesList(localMovies);
-        filterMoviesList(localMovies);
+        localStorage.setItem('moviesList', JSON.stringify(mergedMovies));
+        setMoviesList(mergedMovies);
+        filterMoviesList(mergedMovies);
+        setMoviesApiError(false);
+      } catch (error) {
+        console.log(error);
+        setMoviesApiError(true);
+      } finally {
+        setIsMoviesLoading(false);
       }
     } else {
-      filterMoviesList(moviesList);
+      setMoviesList(localMovies);
+      filterMoviesList(localMovies);
     }
   };
 
   useEffect(() => {
     updateMovies(searchSavedName, searchSavedNameShorts);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [searchSavedName, searchSavedNameShorts, moviesList]);
+  }, [searchSavedName, searchSavedNameShorts]);
 
   const switchLike = async (movie) => {
     setIsMovieNeedUpdate(true);

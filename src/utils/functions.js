@@ -16,15 +16,3 @@ export const findMovies = (name = '', includeShortMovies = false, movies) => {
     return isNameValid && isMovieShort;
   })
 }
-
-export const formatDuration = (min) => {
-  let duration = "";
-  if (min >= 60) {
-    duration += Math.floor(min / 60);
-    duration += " ч ";
-  }
-  duration += min % 60;
-  duration += " м";
-  return duration;
-};
-

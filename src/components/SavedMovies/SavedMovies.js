@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useMemo } from "react";
+import React, { useEffect, useState, useMemo, useCallback } from "react";
 import { useLocation } from "react-router-dom";
 import MoviesCardList from "../Movies/MoviesCardList/MoviesCardList";
 import Preloader from "../Preloader/Preloader";
@@ -21,7 +21,6 @@ function SavedMovies() {
   const searchSavedName = localStorage.getItem("search-SavedName") || "";
   const searchSavedNameShorts = (localStorage.getItem("search-SavedNameShorts") === "true") ? true : false;
 
-
   let location = useLocation();
 
   const isNoResults = useMemo(() => !isMoviesLoading && filteredSavedMoviesList.length === 0, [isMoviesLoading, filteredSavedMoviesList]);
@@ -39,7 +38,7 @@ function SavedMovies() {
       });
   };
 
-  const updateSavedMovies = async (search, isMovieShort) => {
+  const updateSavedMovies = useCallback(async (search, isMovieShort) => {
     setIsMovieNeedUpdate(true);
 
     try {
@@ -62,20 +61,20 @@ function SavedMovies() {
     } finally {
       setIsMoviesLoading(false);
     }
-  };
+  }, [savedMoviesList]);
 
   useEffect(() => {
     updateSavedMovies(searchSavedName, searchSavedNameShorts);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [searchSavedName, searchSavedNameShorts])
+  }, [searchSavedName, searchSavedNameShorts, updateSavedMovies]);
 
   useEffect(() => {
     if (isMovieNeedUpdate) {
       updateSavedMovies("", false);
       setIsMovieNeedUpdate(false);
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [savedMoviesList.length])
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [savedMoviesList.length, updateSavedMovies]);
+
 
   const handleSubmit = (request, filtercheckbox) => {
     updateSavedMovies(request, filtercheckbox);

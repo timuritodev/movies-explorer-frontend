@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { useLocation } from "react-router-dom";
 import MoviesCard from "../MoviesCard/MoviesCard";
 import useWindowSize from "../../../utils/windowSize";
 import { breakpoints } from "../../../utils/constants";
@@ -11,6 +12,7 @@ function MoviesCardList({ path, data, saveMovie }) {
   const [maxRenderedMovies, setMaxRenderedMovies] = useState(0);
   const [numberOfMoviesToAdd, setNumberOfMoviesToAdd] = useState(0);
   const size = useWindowSize();
+  const location = useLocation();
 
   const moviesCardsMarkup = renderedMovies.map((item) => (
     <MoviesCard
@@ -37,19 +39,22 @@ function MoviesCardList({ path, data, saveMovie }) {
   };
 
   const setNumberOfMoviesBasedOnScreenWidth = () => {
-    if (size.width >= breakpoints.LargeSize.width) {
-      setMaxRenderedMovies(breakpoints.LargeSize.renderedMovies);
-      setNumberOfMoviesToAdd(breakpoints.LargeSize.moviesToAdd);
-    } else if (size.width < breakpoints.LargeSize.width && size.width >= breakpoints.BigSize.width) {
-      setMaxRenderedMovies(breakpoints.BigSize.renderedMovies);
-      setNumberOfMoviesToAdd(breakpoints.BigSize.moviesToAdd);
-    } else if (size.width < breakpoints.MediumSize.width && size.width >= breakpoints.SmallSize.width) {
-      setMaxRenderedMovies(breakpoints.MediumSize.renderedMovies);
-      setNumberOfMoviesToAdd(breakpoints.MediumSize.moviesToAdd);
-    } else if (size.width < breakpoints.SmallSize.width) {
-      setMaxRenderedMovies(breakpoints.SmallSize.renderedMovies);
-      setNumberOfMoviesToAdd(breakpoints.SmallSize.moviesToAdd);
-    };
+    if (size.width >= breakpoints.SIZE_LARGE.width) {
+      setMaxRenderedMovies(breakpoints.SIZE_LARGE.renderedMovies);
+      setNumberOfMoviesToAdd(breakpoints.SIZE_LARGE.moviesToAdd);
+    } else if (size.width < breakpoints.SIZE_LARGE.width && size.width >= breakpoints.SIZE_BIG.width) {
+      setMaxRenderedMovies(breakpoints.SIZE_BIG.renderedMovies);
+      setNumberOfMoviesToAdd(breakpoints.SIZE_BIG.moviesToAdd);
+    } else if (size.width < breakpoints.SIZE_MEDIUM.width && size.width >= breakpoints.SIZE_SMALL.width) {
+      setMaxRenderedMovies(breakpoints.SIZE_MEDIUM.renderedMovies);
+      setNumberOfMoviesToAdd(breakpoints.SIZE_MEDIUM.moviesToAdd);
+    } else if (size.width < breakpoints.SIZE_SMALL.width) {
+      setMaxRenderedMovies(breakpoints.SIZE_SMALL.renderedMovies);
+      setNumberOfMoviesToAdd(breakpoints.SIZE_SMALL.moviesToAdd);
+    } if (location.pathname === "/saved-movies") {
+      setMaxRenderedMovies(1000);
+      setNumberOfMoviesToAdd(0);
+    }
   };
 
   useEffect(() => {
@@ -92,7 +97,7 @@ function MoviesCardList({ path, data, saveMovie }) {
       <section className="movies-cardlist">
         {moviesCardsMarkup}
       </section>
-      {showButtonVisible ? (
+      {location.pathname === "/movies" && showButtonVisible ? (
         <div className="movies__button">
           <button
             className="more__button button"

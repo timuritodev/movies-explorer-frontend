@@ -79,6 +79,10 @@
   border: none;
 }
 
+.search-form__button_disabled{
+  background: red;
+}
+
 @media screen and (max-width: 768px) {
   .search-form {
     padding: 80px 30px 89px;

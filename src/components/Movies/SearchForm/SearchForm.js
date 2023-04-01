@@ -23,7 +23,8 @@ function SearchForm({ onSubmit, pathname }) {
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
-    if (pathname === '/movies' && query.length === 0) {
+    const form = evt.target;
+    if (!form.checkValidity()) {
       setIsQueryEmpty(true);
       return;
     }
@@ -33,12 +34,12 @@ function SearchForm({ onSubmit, pathname }) {
 
   return (
     <section className="search-form">
-      <form className="search-form__form" name="search-form" onSubmit={handleSubmit}>
+      <form className="search-form__form" name="search-form" onSubmit={handleSubmit} noValidate>
         <div className="search-form__block">
-          <input className="search-form__input" id="search-input" name="search-input" type="text" placeholder="Фильм" value={query} onChange={handleSearchInputChange} />
+          <input className="search-form__input" id="search-input" name="search-input" type="text" placeholder="Фильм" value={query} onChange={handleSearchInputChange} required />
           <button className="search-form__button button" type="submit">Найти</button>
         </div>
-        <span className="search-form__error">{isQueryEmpty && "Введите ключевое слово"}</span>
+        <span className="search-form__error">{isQueryEmpty && "Нужно ввести ключевое слово"}</span>
         <FilterCheckbox filterCheckbox={shortQuery} onClickCheckbox={onClickCheckbox} />
       </form>
     </section>

@@ -38,7 +38,15 @@
 }
 
 .profile-form__error_positive {
-  color: green;
+  color: rgb(64, 138, 64);
+  margin: 0 0 20px;
+  padding: 0;
+  height: 12px;
+  font-family: "Inter";
+  font-style: normal;
+  font-weight: 400;
+  font-size: 10px;
+  line-height: 12px;
 }
 
 .profile-form__input {

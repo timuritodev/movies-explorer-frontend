@@ -1,22 +1,33 @@
 export const breakpoints = {
-  SmallSize: {
-    width: 768,
+  SIZE_SMALL: {
+    width: 475,
     renderedMovies: 5,
-    moviesToAdd: 1,
+    moviesToAdd: 2,
   },
-  MediumSize: {
-    width: 990,
+  SIZE_MEDIUM: {
+    width: 768,
     renderedMovies: 8,
     moviesToAdd: 2,
   },
-  BigSize: {
-    width: 1024,
+  SIZE_BIG: {
+    width: 1275,
     renderedMovies: 12,
     moviesToAdd: 3,
   },
-  LargeSize: {
-    width: 1280,
+  SIZE_LARGE: {
+    width: 1400,
     renderedMovies: 16,
     moviesToAdd: 4,
   }
 }
+
+export const formatDuration = (min) => {
+  let duration = "";
+  if (min >= 60) {
+    duration += Math.floor(min / 60);
+    duration += " ч ";
+  }
+  duration += min % 60;
+  duration += " м";
+  return duration;
+};

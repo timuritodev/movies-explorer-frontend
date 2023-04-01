@@ -24,7 +24,7 @@ function Profile({ handleUpdate, handleLogout }) {
   const errorMessages = {
     200: "Данные были обновлены",
     409: "Пользователь с такой почтой уже существует",
-    500:  "Попробуйте позже. Ошибка на сервере.",
+    500: "Попробуйте позже. Ошибка на сервере.",
     default: "Попробуйте позже. Произошла ошибка",
   };
 
@@ -94,9 +94,11 @@ function Profile({ handleUpdate, handleLogout }) {
       .then(() => {
         setIsEdit(false);
         setIsSubmitting(false);
+        setInfoText('Данные успешно обновлены');
       })
       .catch(() => setIsSubmitting(false));
   }
+
 
   function handleApiMessage(updatedCondition) {
     if (updatedCondition) {
@@ -108,7 +110,7 @@ function Profile({ handleUpdate, handleLogout }) {
   useEffect(() => {
     handleApiMessage()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [ isEdit ]);
+  }, [isEdit]);
 
   useEffect(() => {
     setUsername(currentUser.name);
@@ -117,6 +119,7 @@ function Profile({ handleUpdate, handleLogout }) {
     setNewUsermail(currentUser.email);
   }, [currentUser]);
 
+  console.log('infoText',infoText)
   return (
     <section className="profile">
       <h1 className="login__title">Привет, {username}!</h1>
@@ -151,7 +154,10 @@ function Profile({ handleUpdate, handleLogout }) {
         </div>
         <span className="login-form__error">{inputUseremailError}</span>
       </form>
-      <span className={`login-form__error ${isEdit ? "profile-form__error_positive" : ""}`}>{infoText}</span>
+      <span className={infoText === "Данные успешно обновлены" ? "profile-form__error_positive" : "login-form__error"}>
+  {infoText}
+</span>
+
       <button
         className={`profile__button ${formIsValid ? "" : "profile__button_disabled"}`}
         type="submit"
