@@ -101,6 +101,7 @@ function Movies() {
 
       const mergedMovies = mergeMovieLists(moviesList, movies);
       localStorage.setItem('moviesList', JSON.stringify(mergedMovies));
+      setMoviesList(mergedMovies);
 
     } catch (err) {
       console.error(err);
