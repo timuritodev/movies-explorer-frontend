@@ -80,9 +80,14 @@ function Movies() {
   useEffect(() => {
     if (hasSearched) {
       updateMovies(searchSavedName, searchSavedNameShorts);
+    } else {
+      const localMovies = JSON.parse(localStorage.getItem('moviesList') || '[]');
+      setMoviesList(localMovies);
+      setFilteredMoviesList(localMovies);
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [hasSearched]);
+  }, [hasSearched, moviesList]);
+
 
   const switchLike = async (movie) => {
     setIsMovieNeedUpdate(true);

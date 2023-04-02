@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { useLocation } from "react-router-dom";
 import MoviesCard from "../MoviesCard/MoviesCard";
 import useWindowSize from "../../../utils/windowSize";
-import { breakpoints } from "../../../utils/constants";
+import { BREAKPOINTS } from "../../../utils/constants";
 
 function MoviesCardList({ path, data, saveMovie }) {
 
@@ -39,18 +39,15 @@ function MoviesCardList({ path, data, saveMovie }) {
   };
 
   const setNumberOfMoviesBasedOnScreenWidth = () => {
-    if (size.width >= breakpoints.SIZE_LARGE.width) {
-      setMaxRenderedMovies(breakpoints.SIZE_LARGE.renderedMovies);
-      setNumberOfMoviesToAdd(breakpoints.SIZE_LARGE.moviesToAdd);
-    } else if (size.width < breakpoints.SIZE_LARGE.width && size.width >= breakpoints.SIZE_BIG.width) {
-      setMaxRenderedMovies(breakpoints.SIZE_BIG.renderedMovies);
-      setNumberOfMoviesToAdd(breakpoints.SIZE_BIG.moviesToAdd);
-    } else if (size.width < breakpoints.SIZE_MEDIUM.width && size.width >= breakpoints.SIZE_SMALL.width) {
-      setMaxRenderedMovies(breakpoints.SIZE_MEDIUM.renderedMovies);
-      setNumberOfMoviesToAdd(breakpoints.SIZE_MEDIUM.moviesToAdd);
-    } else if (size.width < breakpoints.SIZE_SMALL.width) {
-      setMaxRenderedMovies(breakpoints.SIZE_SMALL.renderedMovies);
-      setNumberOfMoviesToAdd(breakpoints.SIZE_SMALL.moviesToAdd);
+    if (size.width >= BREAKPOINTS.SIZE_BIG.width) {
+      setMaxRenderedMovies(BREAKPOINTS.SIZE_BIG.renderedMovies);
+      setNumberOfMoviesToAdd(BREAKPOINTS.SIZE_BIG.moviesToAdd);
+    } else if (size.width < BREAKPOINTS.SIZE_BIG.width && size.width >= BREAKPOINTS.SIZE_MEDIUM.width) {
+      setMaxRenderedMovies(BREAKPOINTS.SIZE_MEDIUM.renderedMovies);
+      setNumberOfMoviesToAdd(BREAKPOINTS.SIZE_MEDIUM.moviesToAdd);
+    } else if (size.width < BREAKPOINTS.SIZE_MEDIUM.width && size.width >= BREAKPOINTS.SIZE_SMALL.width) {
+      setMaxRenderedMovies(BREAKPOINTS.SIZE_SMALL.renderedMovies);
+      setNumberOfMoviesToAdd(BREAKPOINTS.SIZE_SMALL.moviesToAdd);
     } if (location.pathname === "/saved-movies") {
       setMaxRenderedMovies(1000);
       setNumberOfMoviesToAdd(0);

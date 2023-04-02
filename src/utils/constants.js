@@ -1,4 +1,4 @@
-export const breakpoints = {
+export const BREAKPOINTS = {
   SIZE_SMALL: {
     width: 768,
     renderedMovies: 5,
@@ -10,16 +10,11 @@ export const breakpoints = {
     moviesToAdd: 2,
   },
   SIZE_BIG: {
-    width: 1024,
+    width: 1280,
     renderedMovies: 12,
     moviesToAdd: 3,
   },
-  SIZE_LARGE: {
-    width: 1280,
-    renderedMovies: 16,
-    moviesToAdd: 4,
-  }
-}
+};
 
 export const formatDuration = (min) => {
   let duration = "";
