@@ -30,11 +30,28 @@ function SavedMovies() {
     const jwt = localStorage.getItem("jwt");
     mainApi.setAuthorizationToken(jwt);
 
+    const localMovies = JSON.parse(localStorage.getItem('saved-moviesList') || "[]");
+    if (localMovies.length !== 0) {
+      setSavedMoviesList(localMovies);
+      setFilteredSavedMoviesList(findMovies(searchSavedName, searchSavedNameShorts, localMovies));
+      setIsMoviesLoading(false);
+      return Promise.resolve(localMovies);
+    }
+
     return mainApi.getSavedMovies()
       .then((res) => {
         const movies = res.data.map((movie) => ({ ...movie, saved: true }));
         localStorage.setItem('saved-moviesList', JSON.stringify(movies));
+        setSavedMoviesList(movies);
+        setFilteredSavedMoviesList(findMovies(searchSavedName, searchSavedNameShorts, movies));
+        setSavedMoviesApiError(false);
         return movies;
+      })
+      .catch(() => {
+        setSavedMoviesApiError(true);
+      })
+      .finally(() => {
+        setIsMoviesLoading(false);
       });
   };
 
@@ -42,18 +59,8 @@ function SavedMovies() {
     setIsMovieNeedUpdate(true);
 
     try {
-      let movies = savedMoviesList;
-      if (movies.length === 0) {
-        const localMovies = JSON.parse(localStorage.getItem('saved-moviesList') || "[]");
-        if (localMovies.length === 0) {
-          movies = await fetchSavedMovies();
-        } else {
-          movies = localMovies;
-        }
-        setSavedMoviesList(movies);
-      }
-      const filteredMovies = findMovies(search, isMovieShort, movies);
-      setFilteredSavedMoviesList(filteredMovies);
+      const movies = await fetchSavedMovies();
+      setFilteredSavedMoviesList(findMovies(search, isMovieShort, movies));
       setSavedMoviesApiError(false);
     } catch (error) {
       console.log(error);
@@ -61,7 +68,9 @@ function SavedMovies() {
     } finally {
       setIsMoviesLoading(false);
     }
-  }, [savedMoviesList]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [searchSavedName, searchSavedNameShorts]);
+
 
   useEffect(() => {
     updateSavedMovies(searchSavedName, searchSavedNameShorts);

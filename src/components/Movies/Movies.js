@@ -86,7 +86,7 @@ function Movies() {
       setFilteredMoviesList(localMovies);
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [hasSearched, moviesList]);
+  }, [hasSearched]);
 
 
   const switchLike = async (movie) => {

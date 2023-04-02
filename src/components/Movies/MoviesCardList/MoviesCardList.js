@@ -45,7 +45,7 @@ function MoviesCardList({ path, data, saveMovie }) {
     } else if (size.width < BREAKPOINTS.SIZE_BIG.width && size.width >= BREAKPOINTS.SIZE_MEDIUM.width) {
       setMaxRenderedMovies(BREAKPOINTS.SIZE_MEDIUM.renderedMovies);
       setNumberOfMoviesToAdd(BREAKPOINTS.SIZE_MEDIUM.moviesToAdd);
-    } else if (size.width < BREAKPOINTS.SIZE_MEDIUM.width && size.width >= BREAKPOINTS.SIZE_SMALL.width) {
+    } else {
       setMaxRenderedMovies(BREAKPOINTS.SIZE_SMALL.renderedMovies);
       setNumberOfMoviesToAdd(BREAKPOINTS.SIZE_SMALL.moviesToAdd);
     } if (location.pathname === "/saved-movies") {
