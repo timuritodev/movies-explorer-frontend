@@ -17,14 +17,13 @@ function SearchForm({ onSubmit, pathname }) {
 
   const handleSearchInputChange = (evt) => {
     const inputValue = evt.target.value;
-    setIsQueryEmpty(inputValue.length === 0 ? true : false);
     setQuery(inputValue);
   }
 
   const handleSubmit = (evt) => {
     evt.preventDefault();
     const form = evt.target;
-    if (!form.checkValidity()) {
+    if (!form.checkValidity() || query.length === 0) {
       setIsQueryEmpty(true);
       return;
     }

@@ -18,6 +18,7 @@ function Movies() {
   const [isMoviesLoading, setIsMoviesLoading] = useState(false);
   // eslint-disable-next-line no-unused-vars
   const [isMovieNeedUpdate, setIsMovieNeedUpdate] = useState(false);
+  const [hasSearched, setHasSearched] = useState(false);
 
   const searchSavedName = localStorage.getItem("search-SavedName") || "";
   const searchSavedNameShorts = (localStorage.getItem("search-SavedNameShorts") === "true") ? true : false;
@@ -25,7 +26,7 @@ function Movies() {
 
   let location = useLocation();
 
-  const isNoResults = useMemo(() => !isMoviesLoading && filteredMoviesList.length === 0, [isMoviesLoading, filteredMoviesList]);
+  const isNoResults = useMemo(() => !isMoviesLoading && hasSearched && filteredMoviesList.length === 0, [isMoviesLoading, hasSearched, filteredMoviesList]);
 
   const fetchSavedMovies = () => {
     setIsMoviesLoading(true);
@@ -44,6 +45,7 @@ function Movies() {
     localStorage.setItem('search-SavedName', search);
     localStorage.setItem('search-SavedNameShorts', JSON.stringify(isMovieShort));
     setIsMovieNeedUpdate(true);
+    setHasSearched(true);
 
     const filterMoviesList = (movies) => {
       const filteredMovies = findMovies(search, isMovieShort, movies);
@@ -76,9 +78,11 @@ function Movies() {
   };
 
   useEffect(() => {
-    updateMovies(searchSavedName, searchSavedNameShorts);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [searchSavedName, searchSavedNameShorts]);
+    if (hasSearched) {
+      updateMovies(searchSavedName, searchSavedNameShorts);
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [hasSearched]);
 
   const switchLike = async (movie) => {
     setIsMovieNeedUpdate(true);
