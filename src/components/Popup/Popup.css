@@ -1,4 +1,4 @@
-.popup-menu {
+.popup {
   display: flex;
   width: 100vw;
   height: 100vh;
@@ -13,12 +13,12 @@
   visibility: hidden;
 }
 
-.popup-menu_opened {
+.popup_opened {
   opacity: 1;
   visibility: visible;
 }
 
-.popup-menu__block {
+.popup__block {
   position: relative;
   display: flex;
   justify-content: center;
@@ -32,7 +32,7 @@
   padding: 23px 23px 90px;
 }
 
-.popup-menu__close {
+.popup__close {
   width: 22px;
   height: 22px;
   background-image: url(../../images/close-button.svg);
@@ -44,7 +44,7 @@
   border: none;
 }
 
-.popup-menu__nav {
+.popup__nav {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -54,7 +54,7 @@
   padding: 0;
 }
 
-.popup-menu__links {
+.popup__links {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -65,7 +65,7 @@
   list-style: none;
 }
 
-.popup-menu__link {
+.popup__link {
   font-family: Inter;
   font-size: 18px;
   font-weight: 500;
@@ -78,7 +78,7 @@
   padding: 0;
 }
 
-.popup-menu__link_line {
+.popup__link_line {
   width: 72px;
   text-align: center;
   align-self: center;
@@ -86,7 +86,7 @@
   border-bottom: 1px solid;
 }
 
-.popup-menu__link_acc {
+.popup__link_acc {
   width: 100px;
   height: 32px;
   font-size: 14px;
@@ -99,11 +99,11 @@
 }
 
 @media screen and (max-width: 320px) {
-  .popup-menu__container {
+  .popup__container {
     padding: 15px 15px 46px;
   }
 
-  .popup-menu__navigation {
+  .popup__navigation {
     margin: 100px 0 0;
     padding: 0;
     height: calc(100% - 46px);

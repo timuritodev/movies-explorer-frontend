@@ -1,5 +1,4 @@
 import React from "react";
-import { Link } from "react-router-dom";
 
 function Footer() {
   return (
@@ -9,7 +8,7 @@ function Footer() {
         <p className="footer__date">&copy; 2023</p>
         <div className="footer__info">
           <p className="footer__text">Яндекс.Практикум</p>
-          <Link className="footer__text link" to="https://github.com/sosalnet/movies-explorer-frontend" target="_blank">Github</Link>
+          <a className="footer__text link" href="https://github.com/sosalnet/movies-explorer-frontend" target="_blank" rel="noreferrer">Github</a>
         </div>
       </div>
     </footer>

@@ -5,6 +5,18 @@
   background: #202020;
 }
 
+.movies__text {
+  display: flex;
+  justify-content: center;
+  color:#fff;
+  background-color: #202020;
+  font-family: Inter;
+  font-size: 12px;
+  font-weight: 400;
+  line-height: 18px;
+  letter-spacing: 0px;
+}
+
 .more__button {
   width: 320px;
   height: 36px;

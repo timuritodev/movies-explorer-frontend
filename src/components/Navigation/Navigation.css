@@ -24,6 +24,10 @@
   margin-right: 30px;
 }
 
+.navigation__link_active{
+  border-bottom: 1px solid;
+}
+
 .navigation__link_acc {
   font-weight: 400;
   width: 100px;

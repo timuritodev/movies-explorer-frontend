@@ -1,5 +1,6 @@
 .about-me {
-  margin: 0;
+  margin: auto;
+  max-width: 1140px;
   padding: 70px;
   background: #202020;
 }

@@ -102,7 +102,7 @@
 }
 
 .login-form__error {
-  margin: 0 0 4px;
+  margin: 0 0 10px;
   padding: 0;
   height: 12px;
   font-family: "Inter";
@@ -111,6 +111,10 @@
   font-size: 10px;
   line-height: 12px;
   color: #EE3465;
+}
+
+.login-form__button_disabled {
+  background-color:#5f6c81;
 }
 
 @media screen and (max-width: 768px) {
