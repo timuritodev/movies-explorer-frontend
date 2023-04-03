@@ -5,11 +5,11 @@
 .header__container {
   display: flex;
   justify-content: space-between;
-  margin: auto;
   max-width: 1150px;
+  margin: auto;
   background-color: #073042;
-  padding: 21px 0;
-  box-sizing: border-box;
+  padding: 21px 70px;
+
 }
 .header_dark {
   background: #202020;
@@ -40,7 +40,7 @@
 }
 
 @media screen and (max-width: 800px) {
-  .header {
+  .header__container {
     padding: 16px 30px;
   }
 
@@ -54,7 +54,7 @@
 }
 
 @media screen and (max-width: 320px) {
-  .header {
+  .header__container {
     padding: 18px 14px;
   }
 
