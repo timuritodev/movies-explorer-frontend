@@ -1,8 +1,7 @@
 .movies-cardlist {
   display: grid;
-  grid-template-columns: repeat(auto-fit, 270px);
+  grid-template-columns: repeat(auto-fit, 360px);
   justify-content: center;
-  justify-items: center;
   gap: 28px ;
   margin: auto;
   padding: 70px 70px 30px;
