@@ -1,5 +1,6 @@
 .footer {
-  margin: 0;
+  margin: auto;
+  max-width: 1150px;
   padding: 79px 70px 20px;
   background-color: #202020;
 }

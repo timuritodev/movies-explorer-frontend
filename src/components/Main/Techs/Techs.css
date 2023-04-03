@@ -1,8 +1,12 @@
 .techs {
-  padding: 100px 65px 100px 65px;
   background-color: #272727;
 }
 
+.techs__container {
+  padding: 100px 65px 100px 65px;
+  max-width: 1150px;
+  margin: auto;
+}
 .section__title_plus {
   margin-left: 50px;
 }

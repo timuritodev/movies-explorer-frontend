@@ -1,6 +1,8 @@
 .search-form {
   background: #202020;
   margin: 0;
+  max-width: 1140px;
+  margin: auto;
   padding: 80px 70px 10px;
 }
 

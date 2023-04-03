@@ -1,12 +1,16 @@
 .header {
-  display: flex;
-  justify-content: space-between;
-  margin: 0;
   background-color: #073042;
-  padding: 21px 70px;
-  box-sizing: border-box;
 }
 
+.header__container {
+  display: flex;
+  justify-content: space-between;
+  margin: auto;
+  max-width: 1150px;
+  background-color: #073042;
+  padding: 21px 0;
+  box-sizing: border-box;
+}
 .header_dark {
   background: #202020;
 }
