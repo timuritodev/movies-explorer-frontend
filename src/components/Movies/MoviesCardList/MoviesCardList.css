@@ -15,15 +15,15 @@
   font-size: 20px;
 }
 
-@media screen and (max-width: 768px) {
+@media screen and (max-width: 887px) {
   .movies-cardlist {
-    padding: 0 30px 30px;
+    padding: 40px 30px 30px;
     gap: 35px 24px;
     grid-template-columns: repeat(auto-fit, 342px);
   }
 }
 
-@media screen and (max-width: 425px) {
+@media screen and (max-width: 767px) {
   .movies-cardlist {
     padding: 30px 10px 30px;
     gap: 10px;
