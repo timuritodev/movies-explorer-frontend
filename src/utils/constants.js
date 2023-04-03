@@ -1,16 +1,15 @@
 export const BREAKPOINTS = {
   SIZE_SMALL: {
-    width: 480,
     renderedMovies: 5,
     moviesToAdd: 2,
   },
   SIZE_MEDIUM: {
-    width: 768,
+    width: 630,
     renderedMovies: 8,
     moviesToAdd: 2,
   },
   SIZE_BIG: {
-    width: 1077,
+    width: 1276,
     renderedMovies: 12,
     moviesToAdd: 3,
   },
