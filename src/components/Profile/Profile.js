@@ -1,7 +1,7 @@
 import React, { useContext, useEffect, useState } from "react";
 import { CurrentUserContext } from "../../context/CurrentUserContext";
 
-function Profile({ handleUpdate, handleLogout }) {
+function Profile({ handleUpdate, handleLogout, updatedConditionProfile }) {
 
   const currentUser = useContext(CurrentUserContext);
 
@@ -100,9 +100,9 @@ function Profile({ handleUpdate, handleLogout }) {
   }
 
 
-  function handleApiMessage(updatedCondition) {
-    if (updatedCondition) {
-      const errorMessage = errorMessages[updatedCondition] || errorMessages.default;
+  function handleApiMessage() {
+    if (updatedConditionProfile) {
+      const errorMessage = errorMessages[updatedConditionProfile] || errorMessages.default;
       setInfoText(errorMessage);
     }
   }
@@ -110,7 +110,7 @@ function Profile({ handleUpdate, handleLogout }) {
   useEffect(() => {
     handleApiMessage()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [isEdit]);
+  }, [isEdit, updatedConditionProfile]);
 
   useEffect(() => {
     setUsername(currentUser.name);

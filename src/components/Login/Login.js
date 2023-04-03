@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 
-function Login({ handleLogin }) {
+function Login({ handleLogin, updatedConditionLogin }) {
 
   const [useremail, setUseremail] = useState("");
   const [inputUseremailError, setInputUseremailError] = useState("");
@@ -74,9 +74,9 @@ function Login({ handleLogin }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [useremail, userpassword])
 
-  function handleApiMessage(updatedCondition) {
-    if (updatedCondition) {
-      const errorMessage = errorMessages[updatedCondition] || errorMessages.default;
+  function handleApiMessage() {
+    if (updatedConditionLogin) {
+      const errorMessage = errorMessages[updatedConditionLogin] || errorMessages.default;
       setInfoText(errorMessage);
     }
   }
@@ -84,7 +84,7 @@ function Login({ handleLogin }) {
   useEffect(() => {
     handleApiMessage()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [updatedConditionLogin]);
 
   return (
     <section className="login">

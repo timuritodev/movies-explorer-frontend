@@ -28,6 +28,10 @@ function App() {
 
   const [isPopupOpen, setIsPopupOpen] = useState(false);
 
+  const [updatedConditionLogin, setUpdatedConditionLogin] = useState(false);
+  const [updatedConditionRegister, setUpdatedConditionRegister] = useState(false);
+  const [updatedConditionProfile, setUpdatedConditionProfile] = useState(false);
+
   const checkToken = () => {
     const jwt = localStorage.getItem('jwt');
     mainApi.setAuthorizationToken(jwt)
@@ -73,6 +77,7 @@ function App() {
     }
     catch (err) {
       console.log(err);
+      setUpdatedConditionLogin(err);
     }
   };
 
@@ -84,6 +89,7 @@ function App() {
     }
     catch (err) {
       console.log(err);
+      setUpdatedConditionRegister(err);
     }
   };
 
@@ -93,6 +99,7 @@ function App() {
       setCurrentUser(response.data);
     } catch (err) {
       console.log(err);
+      setUpdatedConditionProfile(err);
     }
   }
 
@@ -125,6 +132,7 @@ function App() {
               <Register
                 handleRegister={handleRegister}
                 handleLogin={handleLogin}
+                updatedConditionRegister={updatedConditionRegister}
               />
             </ProtectedRoute>
           } />
@@ -132,6 +140,7 @@ function App() {
             <ProtectedRoute loggedIn={!isLoggedIn}>
               <Login
                 handleLogin={handleLogin}
+                updatedConditionLogin={updatedConditionLogin}
               />
             </ProtectedRoute>
           } />
@@ -140,6 +149,7 @@ function App() {
               <Profile
                 handleUpdate={handleUpdate}
                 handleLogout={handleLogout}
+                updatedConditionProfile={updatedConditionProfile}
               />
             </ProtectedRoute>
           } />

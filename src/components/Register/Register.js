@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
-function Register({ handleRegister }) {
+function Register({ handleRegister, updatedConditionRegister }) {
 
   const [username, setUsername] = useState("");
   const [inputUsernameError, setInputUsernameError] = useState("");
@@ -97,9 +97,9 @@ function Register({ handleRegister }) {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [useremail, userpassword, isUsernameValid]);
 
-  function handleApiMessage(updatedCondition) {
-    if (updatedCondition) {
-      const errorMessage = errorMessages[updatedCondition] || errorMessages.default;
+  function handleApiMessage() {
+    if (updatedConditionRegister) {
+      const errorMessage = errorMessages[updatedConditionRegister] || errorMessages.default;
       setInfoText(errorMessage);
     }
   }
@@ -107,7 +107,7 @@ function Register({ handleRegister }) {
   useEffect(() => {
     handleApiMessage()
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  }, [updatedConditionRegister]);
 
   return (
     <section className="login">
