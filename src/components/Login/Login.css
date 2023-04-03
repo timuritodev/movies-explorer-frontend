@@ -102,7 +102,7 @@
 }
 
 .login-form__error {
-  margin: 0 0 4px;
+  margin: 0 0 10px;
   padding: 0;
   height: 12px;
   font-family: "Inter";

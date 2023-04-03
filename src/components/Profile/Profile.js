@@ -137,7 +137,7 @@ function Profile({ handleUpdate, handleLogout, updatedConditionProfile }) {
             required
           />
         </div>
-        <span className="login-form__error">{inputUsernameError}</span>
+        <span className="span__error">{inputUsernameError}</span>
         <div className="profile-form__block">
           <label className="profile-form__label">E-mail</label>
           <input
@@ -152,9 +152,9 @@ function Profile({ handleUpdate, handleLogout, updatedConditionProfile }) {
             disabled={isSubmitting}
           />
         </div>
-        <span className="login-form__error">{inputUseremailError}</span>
+        <span className="span__error">{inputUseremailError}</span>
       </form>
-      <span className={infoText === "Данные успешно обновлены" ? "profile-form__error_positive" : "login-form__error"}>
+      <span className={infoText === "Данные успешно обновлены" ? "profile-form__error_positive" : "span__error"}>
   {infoText}
 </span>
 
