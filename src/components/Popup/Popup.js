@@ -1,5 +1,5 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from 'react-router-dom';
 
 function Popup({ isPopupOpen, switchPopup }) {
 
@@ -9,9 +9,9 @@ function Popup({ isPopupOpen, switchPopup }) {
         <button className="popup__close button" type="button" onClick={switchPopup}></button>
         <nav className="popup__nav">
           <ul className="popup__links">
-            <li><Link className="popup__link link" to="/" onClick={switchPopup}>Главная</Link></li>
-            <li><Link className="popup__link popup__link_line link" to="/movies" onClick={switchPopup}>Фильмы</Link></li>
-            <li><Link className="popup__link popup__link_fav link" to="/saved-movies" onClick={switchPopup}>Сохранённые фильмы</Link></li>
+            <li><NavLink to="/" className={({isActive}) => `popup__link link ${isActive ? "popup__link_line" : ""}`} onClick={switchPopup}>Главная</NavLink></li>
+            <li><NavLink to="/movies" className={({isActive}) => `popup__link link ${isActive ? "popup__link_line" : ""}`} onClick={switchPopup}>Фильмы</NavLink></li>
+            <li><NavLink to="/saved-movies" className={({isActive}) => `popup__link link ${isActive ? "popup__link_line" : ""}`} onClick={switchPopup}>Сохранённые фильмы</NavLink></li>
           </ul>
           <Link className="popup__link popup__link_acc link" to="/profile" onClick={switchPopup}>Аккаунт</Link>
         </nav>
